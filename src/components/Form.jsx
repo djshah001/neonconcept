@@ -129,7 +129,7 @@ function Form() {
                         </div>
 
                         <div className="text-center">
-                            <a href="#" className="button_main btn">Send</a>
+                            <a href="/" className="button_main btn">Send</a>
                         </div>
                         {/* <!--<button type="submit" className="button_main"></button>--> */}
                     </form>

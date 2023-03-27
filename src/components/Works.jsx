@@ -47,10 +47,10 @@ function Works() {
                 <div id="container" className="isotope row ml-0" style={{justifyContent: 'space-evenly'}}>
                     
                     {
-                        workInfo.map((object,i) =>{
+                        workInfo.map((object) =>{
                             if (object.path===selected){
                                 return (object.arr.map((imgurl,i) =>{
-                                    return (<PhotoGellery key={object.path+i} imgurl={imgurl}/>)
+                                    return (<PhotoGellery key={object.path+i} imgurl={imgurl} i={i} />)
                                 }))
                             }
                         })

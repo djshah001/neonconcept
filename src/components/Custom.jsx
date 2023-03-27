@@ -43,7 +43,6 @@ function Custom(props) {
         inputRef.current.style.fontFamily = font
     }
 
-    const popover = useRef();
     const [isOpen, toggle] = useState(false);
 
     const [color, setColor] = useState("#fff");
@@ -156,7 +155,9 @@ function Custom(props) {
                                                 transition={{duration:0.8,type:'spring'}}>
                                                         {/* <div className="popover" ref={popover}> */}
                                                             <HexAlphaColorPicker color={color} 
-                                                            onChange={(color)=>setFontColor(color)} />
+                                                            onChange={(color)=>{
+                                                                setColor(color);
+                                                                setFontColor(color)}} />
                                                         {/* </div> */}
                                                 </motion.div>
                                                         }

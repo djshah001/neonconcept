@@ -21,7 +21,7 @@ function Contactdiv() {
                             </div>
                             <div className="cntc_info_e">
                                 <div className="cntc_info_head"><span><i className="fas fa-envelope"></i>&nbsp;&nbsp;Email</span><br /></div>
-                                <span className="cntc_info_b"><a href="#" style={{color:'#acacac'}}>bhagyesh.sheth@gmail.com</a></span>
+                                <span className="cntc_info_b"><a href="/" style={{color:'#acacac'}}>bhagyesh.sheth@gmail.com</a></span>
                             </div>
                         </div>
                     </div>

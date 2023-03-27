@@ -1,16 +1,15 @@
 import { createContext,useState } from "react";
 import React from 'react'
 
-const NavContext = createContext()
+export const NavContext = createContext()
 
 const NavState = (props) => {
-    const Dj = {
-        name:'dj',
-        work:'op'
-    }
-    const [dropdown,setDropdown] = useState('false') 
+    const [dropdown,setDropdown] = useState('false')
+    const [gelleryDropdown,setGelleryDropdown] = useState('false') 
+
+    
     return(
-        <NavContext.Provider value={Dj}>
+        <NavContext.Provider value={{dropdown,setDropdown,gelleryDropdown,setGelleryDropdown}}>
             {props.children}
         </NavContext.Provider>
     )

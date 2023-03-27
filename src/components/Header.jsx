@@ -147,21 +147,21 @@ function Header() {
                 {/* <!--<a href="#" className=""><i className="fab fa-twitter"></i></a>--> */}
                 <a
                   href="https://www.facebook.com/neoncreativeconcept11/"
-                  target="_blank"
+                  
                   className="ml-2"
                 >
                   <i className="fab fa-facebook-f"></i>
                 </a>
                 <a
                   href="https://instagram.com/neon_creative_concept11?utm_medium=copy_link"
-                  target="_blank"
+                  
                   className="ml-2"
                 >
                   <i className="fab fa-instagram"></i>
                 </a>
                 <a
                   href="https://wa.me/919724467687/?text=Neon Creative Concept 11"
-                  target="_blank"
+                  
                   className="ml-2"
                 >
                   <i className="fab fa-whatsapp"></i>

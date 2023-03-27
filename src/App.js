@@ -1,8 +1,5 @@
 import React from 'react'
 
-
-import ReactDOM from "react-dom/client";
-// import { BrowserRouter,Route,Routes,ScrollRestoration } from 'react-router-dom';
 import {
   createBrowserRouter,
   createRoutesFromElements,

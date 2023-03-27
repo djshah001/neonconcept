@@ -1,5 +1,6 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { NavLink } from 'react-router-dom'
+import { NavContext } from '../contexts/NavContext'
 
 function Footer() {
     const style = {
@@ -11,8 +12,15 @@ function Footer() {
         fontWeight:600,
         textDecoration:'underline'
     } 
+
+    const Nav = useContext(NavContext)
+
   return (
-    <footer id="footer">
+    <footer id="footer" onClick={() => {
+        Nav.setDropdown(false)
+        Nav.setGelleryDropdown(false)
+        }}>
+
         <div className="container ftr_main">
             <div className="row">
                 <div className="col-xl-5 col-lg-6 col-md-12 col-sm-12 align-self-center">
