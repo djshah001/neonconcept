@@ -1,6 +1,7 @@
 import React from 'react'
 import Contactdiv from './Contactdiv'
-import Navhead from './Navhead'
+// import Contactdiv from './Contactdiv'
+import Navhead from '../Navhead'
 
 function Contact(props) {
   return (

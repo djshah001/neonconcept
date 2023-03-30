@@ -1,8 +1,8 @@
 import React from 'react'
 import About from './About'
-import PhotoCarousel from './PhotoCarousel'
-import Navhead from './Navhead'
-import Para from './Para'
+import PhotoCarousel from '../PhotoCarousel'
+import Navhead from '../Navhead'
+import Para from '../Para'
 
 function Aboutus() {
   return (

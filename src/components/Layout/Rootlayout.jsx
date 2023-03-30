@@ -1,8 +1,8 @@
 import React,{useContext} from 'react'
-import Navbar from './Navbar'
+import Navbar from '../NavBar/Navbar'
 import { Outlet,ScrollRestoration } from 'react-router-dom'
-import Footer from './Footer'
-import { NavContext } from '../contexts/NavContext'
+import Footer from '../footer/Footer'
+import { NavContext } from '../../contexts/NavContext'
 
 function Rootlayout() {
 
@@ -17,6 +17,7 @@ function Rootlayout() {
         <main onClick={() => {
           Nav.setDropdown(false)
           Nav.setGelleryDropdown(false)
+          Nav.setLedDropdown(false)
           }}>
             <Outlet />
             <ScrollRestoration/>

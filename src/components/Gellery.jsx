@@ -9,8 +9,8 @@ function Gellery(props) {
 
         <div className="container">
 
-            {props.arr.map((imgurl) =>{
-                    return <PhotoGellery className='mt-3' imgurl={imgurl} key={imgurl}/>
+            {props.arr.map((imgurl,i) =>{
+                    return <PhotoGellery className='mt-3' imgurl={imgurl} key={imgurl+i}/>
                 })}
         </div>
 

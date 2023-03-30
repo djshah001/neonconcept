@@ -69,15 +69,11 @@ function PhotoCarousel() {
         slidesToSlide={2}
         swipeable
       >
-        {/* <Photos
-          image="images/projects/p6.jpg"
-        /> */}
 
         {
           carouselInfo.map((url) => 
           {
-            console.log(url);
-            return <Photos image={url}/>
+            return <Photos image={url} key={url} />;
           } )
         }
 

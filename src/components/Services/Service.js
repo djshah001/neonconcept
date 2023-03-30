@@ -12,12 +12,12 @@ function Service(props) {
                 <span className="ser_ttl">{props.title}</span>
                 <p className="ser_dsc card-text">{props.description}</p>
 
-                    <div className="filters">
+                    {/* <div className="filters">
                         <div className="filter-ul-tab">
                             <a href="neon1.html" className="ser_lnk float-left" data-filter="led">View more&nbsp;&nbsp;<i className="fas fa-arrow-right"></i></a>
                             <a href="customize.html" className="ser_lnk float-right">Customize Sign&nbsp;&nbsp;<i className="fas fa-arrow-right"></i></a>
                         </div>
-                    </div>
+                    </div> */}
             </div>
         </div>
     )

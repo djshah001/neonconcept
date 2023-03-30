@@ -22,17 +22,16 @@ function Custom(props) {
       
     const [text,setText] = useState('')
 
-    var width = useRef('0')
+    var [width,setWidth] = useState(0)
+    var [height,setHeight] = useState(0)
+    // console.log(width)
 
 
     let gettext = (e)=>{
         setText(e.target.value)
-        console.log(typeof e.target.value.length)
         let text = e.target.value
-        console.log(width.current)
-        // setWidth(text.lenth)
-        // console.log(width)
-        width.current = 35.5*text.lenth
+        setWidth(35.5*text.length)
+        setHeight(24.5*text.length)
     }
 
     const inputRef = useRef()
@@ -85,11 +84,11 @@ function Custom(props) {
                                         <p>Size Measurement</p>
                                     </div>
                                     <div className="col-md-6">
-                                        <p id="myLength">Width: {width.current} inch</p>
+                                        <p id="myLength">Width: {width} inch</p>
                                     </div>
 
                                     <div className="col-md-5">
-                                        <p id="myheight">Height: 0 inch</p>
+                                        <p id="myheight">Height: {height} inch</p>
                                     </div>
                                     <div className="col-md-6">
                                         <p id="result">₹:</p>
@@ -153,12 +152,10 @@ function Custom(props) {
                                                 animate='shown'
                                                 exit='hidden'
                                                 transition={{duration:0.8,type:'spring'}}>
-                                                        {/* <div className="popover" ref={popover}> */}
                                                             <HexAlphaColorPicker color={color} 
                                                             onChange={(color)=>{
                                                                 setColor(color);
                                                                 setFontColor(color)}} />
-                                                        {/* </div> */}
                                                 </motion.div>
                                                         }
                                             </AnimatePresence>

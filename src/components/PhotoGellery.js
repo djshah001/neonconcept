@@ -13,10 +13,8 @@ function PhotoGellery(props) {
                         className="img-fluid w-100" 
                         initial={{y:-200,opacity:0}}
                         animate={{y:0,opacity:1}}
-                        transition={{duration:`${props.i}`,type:'spring'}}
+                        transition={{duration:0.8,delay:`${props.i}`*0.2,type:'spring'}}
                         />
-                        {/* <h1>{props.imgurl}</h1> */}
-
                     </div>
                 </div>
             </div>

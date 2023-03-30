@@ -22,6 +22,27 @@ const headerContent = [
     }
 ]
 
+export const introInfo = [
+    {
+        sub:'Shine on with FloRo!',
+        head:'About Neon FloRO',
+        body:'Neon FloRo is more than just a lighting solution - it\'s a statement piece that adds personality and character to any space, whether it\'s a commercial establishment, a home, or a special event.',
+        video:'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY'
+    },
+    {
+        sub:'Experience the rainbow with MultiColor Neon',
+        head:'About MultiColor Neon',
+        body:'Multi-Color Neon offers a dazzling array of hues that can create a unique, eye-catching atmosphere for any occasion, from parties to business events, showcasing a spectrum of colors that\'s sure to impress and inspire.',
+        video:'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY'
+    },
+    {
+        sub:'Light up your world!',
+        head:'Single color with Multiple action',
+        body:'Multi-Color Neon offers a dazzling array of hues that can create a unique, eye-catching atmosphere for any occasion, from parties to business events, showcasing a spectrum of colors that\'s sure to impress and inspire.',
+        video:'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY'
+    },
+]
+
 export const goalInfo = [
     {
         icon:'fas fa-bookmark',
@@ -214,5 +235,136 @@ export const neonSize=[
     },
     
 ]
+
+export const neonSignsInfo = [
+    {
+        path:'neonfloro',
+        title:'Neon FloRo',
+        description:'Illuminated Channel letters are three-dimensional text, usually 3-6 inches deep, that can be customized into a variety of fonts, colours, and sizes. They are often used as a building’s primary outdoor signage, adorning the storefront or haling bypassers out near the road.',
+        video:['https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY']
+    },
+    {
+        path:'multicolor',
+        title:'MultiColor Neon',
+        description:'Illuminated Channel letters are three-dimensional text, usually 3-6 inches deep, that can be customized into a variety of fonts, colours, and sizes. They are often used as a building’s primary outdoor signage, adorning the storefront or haling bypassers out near the road.',
+        video:['https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY']
+    },
+    {
+        path:'singlecolor-multipleaction',
+        title:'Single color with multiple action',
+        description:'Illuminated Channel letters are three-dimensional text, usually 3-6 inches deep, that can be customized into a variety of fonts, colours, and sizes. They are often used as a building’s primary outdoor signage, adorning the storefront or haling bypassers out near the road.',
+        video:['https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY']
+    },
+    {
+        path:'florocircuit',
+        title:'FloRo Circuit',
+        description:'Illuminated Channel letters are three-dimensional text, usually 3-6 inches deep, that can be customized into a variety of fonts, colours, and sizes. They are often used as a building’s primary outdoor signage, adorning the storefront or haling bypassers out near the road.',
+        video:['https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY']
+    },
+    {
+        path:'multicircuit',
+        title:'Multiple Color Neon Circuit',
+        description:'Illuminated Channel letters are three-dimensional text, usually 3-6 inches deep, that can be customized into a variety of fonts, colours, and sizes. They are often used as a building’s primary outdoor signage, adorning the storefront or haling bypassers out near the road.',
+        video:['https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY']
+    },
+    {
+        path:'singlecircuit',
+        title:'Single Color Neon Circuit',
+        description:'Illuminated Channel letters are three-dimensional text, usually 3-6 inches deep, that can be customized into a variety of fonts, colours, and sizes. They are often used as a building’s primary outdoor signage, adorning the storefront or haling bypassers out near the road.',
+        video:['https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY', 'https://www.youtube-nocookie.com/embed/0QjVPdrlvhY']
+    }
+]
+
+export const ledboardInfo = [
+    {
+        path:'al',
+        title:'Acrylic Letters',
+        description:'Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit.',
+        imgurls:['/images/Led_signs/portrait1.jpg','/images/Led_signs/landscape.jpg','/images/Led_signs/landscape2.jpg']
+    },
+    {
+        path:'ledsign',
+        title:'Led Sign Board',
+        description:'Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit.',
+        imgurls:['/images/Led_signs/portrait1.jpg','/images/Led_signs/landscape.jpg','/images/Led_signs/landscape2.jpg']
+    },
+    {
+        path:'backlight',
+        title:'Back Light Board',
+        description:'Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit.',
+        imgurls:['/images/Led_signs/portrait1.jpg','/images/Led_signs/landscape.jpg','/images/Led_signs/landscape2.jpg']
+    },
+    {
+        path:'reversible',
+        title:'Reversible Board',
+        description:'Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit.',
+        imgurls:['/images/Led_signs/portrait1.jpg','/images/Led_signs/landscape.jpg','/images/Led_signs/landscape2.jpg']
+    },
+    {
+        path:'flexboard',
+        title:'Flex Board',
+        description:'Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit.',
+        imgurls:['/images/Led_signs/portrait1.jpg','/images/Led_signs/landscape.jpg','/images/Led_signs/landscape2.jpg']
+    },
+    {
+        path:'vinylboard',
+        title:'Vinyl Board',
+        description:'Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit.',
+        imgurls:['/images/Led_signs/portrait1.jpg','/images/Led_signs/landscape.jpg','/images/Led_signs/landscape2.jpg']
+    },
+]
+
+export const neonGoInfo = {
+    path:'/neongo',
+    title:'Neon Go',
+    products:[
+        {
+            imgurl:'images/about/pic3.png',
+            productTitle:'GOOD VIBES',
+            productDescription:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut....',
+            originalPrice:'3000',
+            offerPrice:'2600'
+        },
+        
+        {
+            imgurl:'images/about/pic3.png',
+            productTitle:'GOOD VIBES',
+            productDescription:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut....',
+            originalPrice:'3000',
+            offerPrice:'2600'
+        },
+        
+        {
+            imgurl:'images/about/pic3.png',
+            productTitle:'GOOD VIBES',
+            productDescription:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut....',
+            originalPrice:'3000',
+            offerPrice:'2600'
+        },
+        
+        {
+            imgurl:'images/about/pic3.png',
+            productTitle:'GOOD VIBES',
+            productDescription:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut....',
+            originalPrice:'3000',
+            offerPrice:'2600'
+        },
+        {
+            imgurl:'images/about/pic3.png',
+            productTitle:'GOOD VIBES',
+            productDescription:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut....',
+            originalPrice:'3000',
+            offerPrice:'2600'
+        },
+        {
+            imgurl:'images/about/pic3.png',
+            productTitle:'GOOD VIBES',
+            productDescription:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut....',
+            originalPrice:'3000',
+            offerPrice:'2600'
+        },
+        
+    ]
+}
 
 export default headerContent

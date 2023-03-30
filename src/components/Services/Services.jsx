@@ -1,5 +1,5 @@
 import React from 'react'
-import { serviceInfo } from '../Info'
+import { serviceInfo } from '../../Info'
 import Service from './Service'
 
 function Services() {

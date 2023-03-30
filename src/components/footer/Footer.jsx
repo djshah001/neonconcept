@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import { NavLink } from 'react-router-dom'
-import { NavContext } from '../contexts/NavContext'
+import { NavContext } from '../../contexts/NavContext'
 
 function Footer() {
     const style = {
@@ -19,6 +19,7 @@ function Footer() {
     <footer id="footer" onClick={() => {
         Nav.setDropdown(false)
         Nav.setGelleryDropdown(false)
+        Nav.setLedDropdown(false)
         }}>
 
         <div className="container ftr_main">

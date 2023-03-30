@@ -6,17 +6,20 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Aboutus from './components/Aboutus';
-import Contact from './components/Contact';
+import Aboutus from './components/Aboutus/Aboutus';
+import Contact from './components/Contact/Contact';
 import Custom from './components/Custom';
 import Gellery from './components/Gellery';
 
 import Home from './components/Home'
 import LedBoard from './components/LedBoard';
-import Rootlayout from './components/Rootlayout';
+import Rootlayout from './components/Layout/Rootlayout';
 import Signs from './components/Signs';
 import NavState from './contexts/NavContext';
-import { workInfo } from './Info';
+import { ledboardInfo, neonGoInfo, neonSignsInfo, workInfo } from './Info';
+import NeonSign from './components/NeonSigns/NeonSign';
+import NeonGO from './components/NeonGo/NeonGO';
+import GetProducts from './contexts/GetProducts';
 
 
 
@@ -24,14 +27,12 @@ function App() {
 
   
   const router = createBrowserRouter(
-    // <ScrollRestoration/>
     createRoutesFromElements(
       <Route path="/" element={<Rootlayout/>}>
         <Route path="/" element={<Home />}/>
         <Route path="/about" element={<Aboutus/>}/>
 
         {workInfo.map((obj,value) =>{
-          // console.log(obj.path)
           return <Route path={'/'+obj.path} key={obj.path}
             element={
             <Signs title={obj.title}
@@ -41,12 +42,22 @@ function App() {
             }/>
         })}
 
-        <Route path="/ledboard"  
-        element={<LedBoard
-          title="Glow Sign Board" 
-          description="Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit."
-          route="Led Board"
-        />}/>
+        {
+          neonSignsInfo.map((obj, i) => {
+            return <Route
+              path={obj.path}
+              key={obj.path}
+              element={
+                <NeonSign
+                    title={obj.title}
+                    description={obj.description}
+                    videourls={obj.video}
+                    route={obj.title}
+                  />
+              }
+            />
+          })
+        }
 
         <Route path="/flexboard"  
         element={<LedBoard
@@ -61,8 +72,36 @@ function App() {
           route="CUSTOMIZATION"
         />}/>
 
+        {
+          ledboardInfo.map((obj, i) =>{
+            return (
+              <Route path={'/ledboard/'+obj.path} key={obj.path}
+                element={
+                  <LedBoard 
+                    title={obj.title}
+                    description={obj.description}
+                    imgurls={obj.imgurls}
+                    route={obj.title}
+                    key={obj.path}
+                  />
+                }
+              />
+            )
+          })
+        }
+
+        <Route path={neonGoInfo.path} 
+        element={(<GetProducts>
+          <NeonGO 
+          title={neonGoInfo.title}
+          route={neonGoInfo.title}
+          products={neonGoInfo.products}
+          />
+        </GetProducts>)
+        }
+        />
+
         {workInfo.map((obj,value) =>{
-          // console.log(obj.path)
           return <Route path={'/gellery/'+obj.path} key={obj.path}
             element={
             <Gellery title={obj.title}
