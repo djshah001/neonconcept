@@ -1,7 +1,8 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext, useEffect} from 'react'
 import { NavLink } from 'react-router-dom'
 import { NavContext } from '../../contexts/NavContext'
 import { motion,AnimatePresence } from 'framer-motion'
+import DropDownContext from '../../contexts/DropDownContext'
 
 
 function Navbar() {
@@ -16,17 +17,25 @@ function Navbar() {
       opacity:1
     }
   }
+  
+  const [neonSignarr, setneonSignarr] = useState([])
 
   const Nav = useContext(NavContext)
+  const dropDown = useContext(DropDownContext);
+
+  useEffect(()=>{
+      dropDown.getneonsigns().then((dp)=>{setneonSignarr(dp)})
+  })
+
+
   const [nav,setNav] = useState('false') 
- 
 
   return (
     <>
         <nav 
         className="navbar navbar-expand-lg navbar-light fixed-top"
         >
-          <div className="container">
+          <div className="container-fluid nav-dj">
           <NavLink className="navbar-brand" to="/">
             <img src="/images/logo.png" height="40" alt="logo" />&nbsp;Neon
             Creative Concept 11
@@ -48,8 +57,6 @@ function Navbar() {
         
         <AnimatePresence mode='wait'onExitComplete={()=>null}>
 
-        </AnimatePresence>
-
           {nav && <motion.div 
                 variants={variants}
                 initial='hidden'
@@ -58,9 +65,9 @@ function Navbar() {
                 transition={{duration:0.3}}
                 className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/">Home</NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/about">About US</NavLink>
               </li>
@@ -79,17 +86,24 @@ function Navbar() {
                     animate='shown'
                     exit='hidden'
                     transition={{duration:0.3}} className="dropdown-menu">
+
+                      {
+                        neonSignarr.map((obj,i)=>{
+                          return (
+                          <motion.div
+                          initial={{x:-40,opacity:0}}
+                          animate={{x:0,opacity:1}}
+                          exit={{x:40,opacity:0}}
+                          transition={{delay:0.1*i}}
+                          key={obj._id}
+                          >
+                            <NavLink
+                              className="dropdown-item" to={`/${obj._id}`} onClick={()=>Nav.setDropdown(!Nav.dropdown)}>{obj.title}
+                            </NavLink>
+                          </motion.div>)
+                        })
+                      }
                       
-                    <NavLink className="dropdown-item" to="/neonfloro" onClick={()=>Nav.setDropdown(!Nav.dropdown)}>Neon FloRo</NavLink>
-
-                    <NavLink className="dropdown-item" to="/multicolor" onClick={()=>Nav.setDropdown(!Nav.dropdown)}>MultiColor Neon</NavLink>
-
-                    <NavLink className="dropdown-item" to="/singlecolor-multipleaction" onClick={()=>Nav.setDropdown(!Nav.dropdown)}>Single color with multiple action</NavLink>
-                    <NavLink className="dropdown-item" to="/florocircuit" onClick={()=>Nav.setDropdown(!Nav.dropdown)}>FloRo Circuit</NavLink>
-
-                    <NavLink className="dropdown-item" to="/multicircuit" onClick={()=>Nav.setDropdown(!Nav.dropdown)}>Multiple Color Neon Circuit</NavLink>
-
-                    <NavLink className="dropdown-item" to="/singlecircuit" onClick={()=>Nav.setDropdown(!Nav.dropdown)}>Single Color Neon Circuit</NavLink>
                     
                   </motion.div>
                   }
@@ -139,7 +153,6 @@ function Navbar() {
                 <p
                   className="drop-link dropdown-toggle"
                   data-toggle="dropdown"
-                  // to="javascript:void(0)"
                   role="button"
                   onClick={()=>{Nav.setGelleryDropdown(!Nav.gelleryDropdown)}}
                   aria-haspopup="true"
@@ -189,11 +202,21 @@ function Navbar() {
                 </AnimatePresence>
 
               </li>
+
               <li className="nav-item">
                 <NavLink className="nav-link" to="/contact">Contact us</NavLink>
               </li>
+
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/">
+                <i className="fa-solid fa-cart-shopping fa-lg"></i>
+                </NavLink>
+              </li>
+
             </ul>
           </motion.div>}
+        </AnimatePresence>
+
 
       </div>
     </nav>

@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
-import { workInfo } from '../Info'
-import PhotoGellery from './PhotoGellery'
+import { workInfo } from '../../Info'
+import PhotoGellery from '../PhotoGellery'
 import { NavLink } from 'react-router-dom'
 
 
@@ -61,7 +61,7 @@ function Works() {
                     <div className="featureCol w-100 mb-5">
                         <div>
                             <div className="text-right">
-                                <NavLink id="viewgallery" to={'/' +selected} className="button_main btn mb-3">View more&nbsp;&nbsp;<i className="fas fa-angle-right arrow_go"></i></NavLink>
+                                <NavLink id="viewgallery" to={'/gellery/' +selected} className="button_main btn mb-3">View more&nbsp;&nbsp;<i className="fas fa-angle-right arrow_go"></i></NavLink>
                             </div>
                         </div>
                     </div>

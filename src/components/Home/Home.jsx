@@ -1,17 +1,17 @@
 import React from 'react'
-import { introInfo } from '../Info'
-import About from './Aboutus/About'
-import Contactdiv from './Contact/Contactdiv'
+import { introInfo } from '../../Info'
+import About from '../Aboutus/About'
+import Contactdiv from '../Contact/Contactdiv'
 import Form from './Form'
-import Goals from './Goals'
+import Goals from '../Aboutus/Goals'
 import Header from './Header'
 import Intro from './Intro'
-import Services from './Services/Services'
+import Services from '../Services/Services'
 import Works from './Works'
 
 function Home() {
   return (
-    <div>
+    <>
       <Header/>
       {
         introInfo.map((obj, i) =>{
@@ -33,7 +33,7 @@ function Home() {
       <Works/>
       <Form/>
       <Contactdiv/>
-    </div>
+    </>
   )
 }
 

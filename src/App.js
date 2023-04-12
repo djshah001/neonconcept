@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import {
   createBrowserRouter,
@@ -8,10 +8,10 @@ import {
 } from "react-router-dom";
 import Aboutus from './components/Aboutus/Aboutus';
 import Contact from './components/Contact/Contact';
-import Custom from './components/Custom';
+import Custom from './components/Customize/Custom';
 import Gellery from './components/Gellery';
 
-import Home from './components/Home'
+import Home from './components/Home/Home';
 import LedBoard from './components/LedBoard';
 import Rootlayout from './components/Layout/Rootlayout';
 import Signs from './components/Signs';
@@ -20,10 +20,19 @@ import { ledboardInfo, neonGoInfo, neonSignsInfo, workInfo } from './Info';
 import NeonSign from './components/NeonSigns/NeonSign';
 import NeonGO from './components/NeonGo/NeonGO';
 import GetProducts from './contexts/GetProducts';
+import DropDownContext from './contexts/DropDownContext';
+
 
 
 
 function App() {
+
+  const [neonSignarr, setneonSignarr] = useState([])
+  const dropDown = useContext(DropDownContext);
+  useEffect(()=>{
+    dropDown.getneonsigns().then((dp)=>{setneonSignarr(dp)})
+    // console.log(dropDown)
+},[])
 
   
   const router = createBrowserRouter(
@@ -43,15 +52,15 @@ function App() {
         })}
 
         {
-          neonSignsInfo.map((obj, i) => {
+          neonSignarr.map((obj, i) => {
             return <Route
-              path={obj.path}
-              key={obj.path}
+              path={obj._id}
+              key={obj._id}
               element={
                 <NeonSign
                     title={obj.title}
                     description={obj.description}
-                    videourls={obj.video}
+                    videoUrls={obj.videoUrls}
                     route={obj.title}
                   />
               }
@@ -122,7 +131,7 @@ function App() {
 
   return (
     <NavState>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </NavState>
   )
 }

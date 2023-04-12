@@ -18,15 +18,11 @@ function NeonSign(props) {
 
             <div className="row ">
                 {
-                    props.videourls.map((videourl,i) => {
-
-                    return <div className="col-lg-4 col-md-6 col-sm-12 bl_sec mb-3" key={i}>
-                            <div className="car">
-                                <div className="bl_img">
+                    props.videoUrls.map((videourl,i) => {
+                        // console.log(props.videourl)
+                    return <div className="col-lg-4 col-md-6 col-sm-12 mb-5" key={i}>
                                     <iframe width="310" height="200" src={videourl} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                     frameBorder='0' allowFullScreen></iframe>
-                                </div>                   
-                            </div>				
                         </div>
                     })
                 }

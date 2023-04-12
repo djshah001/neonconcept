@@ -1,5 +1,5 @@
 import React from 'react'
-import { goalInfo } from '../Info'
+import { goalInfo } from '../../Info'
 import Goal from './Goal'
 
 function Goals() {

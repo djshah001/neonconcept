@@ -1,8 +1,8 @@
 import React,{useState,useRef} from 'react'
-import { fontBtnInfo, neonSize } from '../Info'
+import { fontBtnInfo, neonSize } from '../../Info'
 import { HexAlphaColorPicker } from "react-colorful";
 import GridBtn from './GridBtn'
-import Navhead from './Navhead'
+import Navhead from '../Navhead'
 import { AnimatePresence,motion } from 'framer-motion';
 
 function Custom(props) {

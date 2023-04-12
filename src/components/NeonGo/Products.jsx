@@ -12,7 +12,7 @@ function Products(props) {
     className="col-lg-4 col-md-6 col-sm-12 bl_sec mb-5" id='news'>
         <div className="card">
                     <div className="bl_img">
-                        <img src={`http://localhost:3001/${props.imgurl}`} className="img-fluid" alt="thumb"/>
+                        <img src={`${process.env.REACT_APP_HOST}${props.imgurl}`} className="img-fluid" alt="thumb"/>
                     </div>
                     
                     <div className="bl_body">
