@@ -6,7 +6,7 @@ function PrivateRoute() {
     const { res } = useContext(LoginContext);
     const loggedIn = window.localStorage.getItem('loggedIn');
 
-    console.log(res)
+    // console.log(res)
   return (
     <>
       {loggedIn !== null ? <Outlet /> : <Navigate to="/login" />}

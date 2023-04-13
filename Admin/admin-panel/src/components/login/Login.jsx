@@ -1,15 +1,20 @@
 import React, { useContext, useEffect } from 'react'
 import LoginContext from '../../ContextApi/contexts/LoginContext';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../../ContextApi/contexts/UserContext';
 
 function Login() {
 
   const context = useContext(LoginContext)
+  const userContext = useContext(UserContext)
+  // console.log(userContext)
   const navigate = useNavigate()
   const loginFunc = context.login
+  const func = userContext.getuser
 
   const HandleSubmit = async (e) => {
       e.preventDefault()
+      await func()
       await loginFunc()
     }
 

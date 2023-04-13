@@ -18,8 +18,7 @@ function LoginState(props) {
         setUser({...User,[e.target.name]:e.target.value})
       }
     
-    const login = async (e)=> {
-      // e.preventDefault()
+    const login = async ()=> {
       try {
           let response = await axios.post(`http://localhost:3001/auth/login`,User)
           setRes(response.data)          
@@ -31,10 +30,9 @@ function LoginState(props) {
     }
 
     useEffect(() => {
-      console.log(res)
+      // console.log(res)
       if(res.success) {
           window.localStorage.setItem('loggedIn','true')
-
       }
     }, [res])
     

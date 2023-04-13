@@ -13,6 +13,8 @@ import LoginState from './ContextApi/States/LoginState';
 import PrivateRoute from './components/PrivateRoutes/PrivateRoute';
 import DashBoardLayout from './components/layout/DashBoardLayout';
 import User from './components/Users/User';
+import GetUsers from './ContextApi/States/GetUsers';
+import GetLoggedInUser from './ContextApi/States/GetLoggedInUser';
 
 
 function App() {
@@ -21,11 +23,24 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<Rootlayout/>}>
-        <Route path="/login" element={<Login />}/>
+        <Route path="/login" element={
+            <GetLoggedInUser>
+              <Login />
+            </GetLoggedInUser>
+
+        }/>
         <Route exact path='/' element={<PrivateRoute/>}>
-          <Route element={<DashBoardLayout />}>
+          <Route element={
+            <GetLoggedInUser>
+              <DashBoardLayout />
+            </GetLoggedInUser>
+          }>
             <Route exact path='/' element={<Home/>}/>
-            <Route exact path='/user' element={<User/>}/>
+            <Route exact path='/user' element={
+              <GetUsers>
+                <User/>
+              </GetUsers>
+            }/>
             <Route exact path='/hi' element={<div>hi</div>}/>
           </Route>
         </Route>

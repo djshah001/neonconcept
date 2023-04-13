@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import UserContext from "../../ContextApi/contexts/UserContext";
 
 function Sidebar() {
   const [dropdown, setDropdown] = useState(false);
@@ -17,6 +18,8 @@ function Sidebar() {
     },
   };
 
+  const userContext = useContext(UserContext)
+  console.log(userContext.UserInfo)
   return (
     <>
       <div className="leftside-menu">
