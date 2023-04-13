@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const User = require('../models/User')
-var jwt = require('jsonwebtoken');
 const fetchUser = require('../middleware/fetchUser');
-const jwt_secret = 'darshanShah'
 
 
 router.post('/getuser',fetchUser,

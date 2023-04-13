@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,9 +11,6 @@ function Topbar() {
         navigate('/login')
         window.localStorage.removeItem('loggedIn')
     }
-    // useEffect(() =>{
-    //     console.log(loggedIn)
-    // },[loggedIn])
   return (
     <>
       <div className="navbar-custom">
@@ -98,15 +96,16 @@ function Topbar() {
               </div>
             </li>
             <li className="text-center">
-              <button 
+              <motion.button 
+              whileHover={{ scale: 1.2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="btn btn-primary" 
               type="submit"
               onClick={() => {
                 logout()
-                // window.localStorage.removeItem('loggedIn')
                 }}>
                 Log Out
-              </button>
+              </motion.button>
             </li>
           </ul>
         </div>

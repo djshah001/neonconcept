@@ -15,8 +15,31 @@ function GetUsers(props) {
             console.warn(error);
           }
     }
+
+    const getuserbyid = async(userId)=> {
+      try {
+          let response = await axios.post(`${process.env.REACT_APP_HOST}auth/getuserbyid`,{id:userId})
+          return response.data
+        } 
+      catch (error) 
+        {
+          console.warn(error);
+        }
+    }
+
+    const createUser = async(user)=>{
+      try {
+        let response = await axios.post(`${process.env.REACT_APP_HOST}auth/createuser`,user)
+        console.log(response.data)
+          return response.data
+      } 
+      catch (error) {
+        
+      }
+    }
+
   return (
-    <UserContext.Provider value={{getUsersArray,users}}>
+    <UserContext.Provider value={{getUsersArray,getuserbyid,createUser,users}}>
         {props.children}
     </UserContext.Provider>
   )

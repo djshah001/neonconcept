@@ -1,12 +1,33 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../ContextApi/contexts/UserContext";
-import { NavLink } from "react-router-dom";
+import EditUser from "./EditUser";
+import { AnimatePresence, motion } from "framer-motion";
+import CreateUser from "./CreateUser";
 
 function User() {
   const userContext = useContext(UserContext);
+  const [ShowEdit, setShowEdit] = useState(false);
+  const [ShowAddUser, setShowAddUser] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
+
   useEffect(() => {
     userContext.getUsersArray();
   }, []);
+
+  const getuserbyid = userContext.getuserbyid;
+  const handleClick = async (userId) => {
+    console.log(userId);
+    const res = await getuserbyid(userId);
+    setUserInfo(res);
+    console.log(userInfo);
+    setShowEdit(!ShowEdit);
+  };
+
+  const handleChange = (e) => {
+    console.log("hi", e.target.name, e.target.value);
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className="content-page">
       <div className="container-fluid">
@@ -44,26 +65,66 @@ function User() {
                 <th>{user.name}</th>
                 <th>{user.name}</th>
                 <th>
-                  <NavLink
+                  <motion.button
+                    whileHover={{ scale: 1.2 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    whileTap={{ scale: 0.9 }}
                     type="button"
+                    value={user._id}
                     className="btn btn-success rounded-pill"
+                    onClick={() => handleClick(user._id)}
                   >
                     <i className="fa-solid fa-pen-to-square"></i>
                     Edit
-                  </NavLink>
-                  <NavLink
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    whileTap={{ scale: 0.9 }}
                     type="button"
                     className="btn btn-danger rounded-pill"
                   >
                     <i className="fa-solid fa-trash"></i>
                     Delete
-                  </NavLink>
+                  </motion.button>
                 </th>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <AnimatePresence>
+        {ShowEdit && (
+          <EditUser
+            setShowEdit={setShowEdit}
+            userInfo={userInfo}
+            handleChange={handleChange}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {ShowAddUser && (
+          <CreateUser
+            setShowAddUser={setShowAddUser}
+          />
+        )}
+      </AnimatePresence>
+
+      <div className="col-10">
+        <div className="d-flex flex-row-reverse ">
+          <motion.button 
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          whileTap={{ scale: 0.9 }}
+          className="btn btn-primary rounded-pill"
+          onClick={() => setShowAddUser(true)}
+          >
+            <i className="fa-solid fa-plus"></i>
+            Add User
+          </motion.button>
+        </div>
+      </div>
     </div>
   );
 }

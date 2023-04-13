@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import UserContext from "../../ContextApi/contexts/UserContext";
 
 function Sidebar() {
   const [dropdown, setDropdown] = useState(false);
   const [dropdown2, setDropdown2] = useState(false);
+  const [UserInfo, setUserInfo] = useState({})
+
 
   const variants = {
     hidden: {
@@ -19,7 +21,13 @@ function Sidebar() {
   };
 
   const userContext = useContext(UserContext)
-  console.log(userContext.UserInfo)
+  
+  useEffect(()=>{
+      userContext.getuser().then((r)=>{
+        setUserInfo(r)
+      })
+  },[])
+
   return (
     <>
       <div className="leftside-menu">
@@ -45,7 +53,7 @@ function Sidebar() {
                 height="42"
                 className="rounded-circle shadow-sm"
               />
-              <span className="leftbar-user-name mt-2">Dominic Keller</span>
+              <span className="leftbar-user-name mt-2">{UserInfo.name}</span>
             </NavLink>
           </div>
 
