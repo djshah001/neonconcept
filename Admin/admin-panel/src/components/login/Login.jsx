@@ -6,15 +6,13 @@ import { motion } from "framer-motion";
 
 function Login() {
   const context = useContext(LoginContext);
-  const userContext = useContext(UserContext);
+  // const userContext = useContext(UserContext);
   // console.log(userContext)
   const navigate = useNavigate();
   const loginFunc = context.login;
-  const func = userContext.getuser;
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    await func();
     await loginFunc();
   };
 

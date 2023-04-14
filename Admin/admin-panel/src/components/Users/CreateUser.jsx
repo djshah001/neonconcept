@@ -5,28 +5,40 @@ import { useNavigate } from "react-router-dom";
 
 function CreateUser(props) {
   const [userInfo, setUserInfo] = useState({
-    name:'',
-    email:'',
-    password:'',
+    name: "",
+    email: " ",
+    password: "",
+    image:""
   });
+  const [Counter, setCounter] = useState(0);
 
   const userContext = useContext(UserContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const createfun = userContext.createUser
-  const handleSubmit = async(e) => {
+  const createfun = userContext.createUser;
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("hi");
-    await createfun(userInfo)
+    await createfun(userInfo);
+    props.forceUpdate();
+    setCounter(Counter + 1);
     props.setShowAddUser(false);
   };
-  useEffect(()=>{
 
-  },[])
+  const onImageChange = (e)=>{
+    console.log(e.target.files[0])
+    setUserInfo({ ...userInfo, [e.target.name]: [e.target.files[0] ]});
+    console.log(e.target.name)
+    console.log(userInfo)
+  }
+
+  useEffect(() => {
+    navigate("/user");
+  }, [Counter, navigate]);
   return (
     <>
       <motion.div
@@ -55,7 +67,8 @@ function CreateUser(props) {
                 />
               </div>
               <div className="modal-body">
-                <form onSubmit={handleSubmit}>
+
+                <form onSubmit={handleSubmit} autoComplete="off" encType="multipart/form-data">
                   <div className="form-group">
                     <label htmlFor="name" className="col-form-label">
                       Name:
@@ -101,8 +114,23 @@ function CreateUser(props) {
                         onChange={(e) => handleChange(e)}
                         className="form-control"
                         placeholder="Enter your password"
+                        autoComplete="no-password"
                       />
                     </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="example-fileinput" className="col-form-label">
+                      Enter Image:
+                    </label>
+                    <input
+                      type="file"
+                      id="example-fileinput"
+                      name="image"
+                      className="form-control"
+                      accept="image/*"
+                      onChange={onImageChange}
+                    />
                   </div>
 
                   <div className="modal-footer">

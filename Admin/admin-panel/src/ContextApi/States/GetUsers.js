@@ -7,7 +7,6 @@ function GetUsers(props) {
     const getUsersArray = async()=> {
         try {
             let response = await axios.get(`${process.env.REACT_APP_HOST}auth/getusers`)
-            console.log(response)
             setUsers(response.data)
           } 
         catch (error) 
@@ -33,13 +32,24 @@ function GetUsers(props) {
         console.log(response.data)
           return response.data
       } 
+      catch (error)
+      {
+        console.warn(error);
+      }
+    }
+    const DeleteUserById = async(userId)=>{
+      try {
+        let response = await axios.post(`${process.env.REACT_APP_HOST}auth/deleteuserbyid`,{userId:userId})
+        console.log(response.data)
+          return response.data
+      } 
       catch (error) {
         
       }
     }
 
   return (
-    <UserContext.Provider value={{getUsersArray,getuserbyid,createUser,users}}>
+    <UserContext.Provider value={{getUsersArray,getuserbyid,createUser,users,DeleteUserById}}>
         {props.children}
     </UserContext.Provider>
   )

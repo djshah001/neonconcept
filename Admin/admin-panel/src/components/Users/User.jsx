@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import UserContext from "../../ContextApi/contexts/UserContext";
 import EditUser from "./EditUser";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, sync } from "framer-motion";
 import CreateUser from "./CreateUser";
 
 function User() {
@@ -10,9 +10,12 @@ function User() {
   const [ShowAddUser, setShowAddUser] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
+  
+  const [render, forceUpdate] = useReducer(x => x+1,0)
+  
   useEffect(() => {
     userContext.getUsersArray();
-  }, []);
+  }, [render]);
 
   const getuserbyid = userContext.getuserbyid;
   const handleClick = async (userId) => {
@@ -22,6 +25,14 @@ function User() {
     console.log(userInfo);
     setShowEdit(!ShowEdit);
   };
+
+  const deleteuserbyid = userContext.DeleteUserById;
+  const deleteUser = async(userId) => {
+    console.log(userId)
+    const res = await deleteuserbyid(userId);
+    forceUpdate()
+    console.log(res)
+  }
 
   const handleChange = (e) => {
     console.log("hi", e.target.name, e.target.value);
@@ -83,6 +94,7 @@ function User() {
                     whileTap={{ scale: 0.9 }}
                     type="button"
                     className="btn btn-danger rounded-pill"
+                    onClick={() => deleteUser(user._id)}
                   >
                     <i className="fa-solid fa-trash"></i>
                     Delete
@@ -107,6 +119,7 @@ function User() {
         {ShowAddUser && (
           <CreateUser
             setShowAddUser={setShowAddUser}
+            forceUpdate={forceUpdate}
           />
         )}
       </AnimatePresence>
@@ -121,7 +134,7 @@ function User() {
           onClick={() => setShowAddUser(true)}
           >
             <i className="fa-solid fa-plus"></i>
-            Add User
+            Create New User
           </motion.button>
         </div>
       </div>

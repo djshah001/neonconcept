@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import UserContext from "../../ContextApi/contexts/UserContext";
 
 function Sidebar() {
@@ -21,9 +21,10 @@ function Sidebar() {
   };
 
   const userContext = useContext(UserContext)
+  const location = useLocation()
   
   useEffect(()=>{
-      userContext.getuser().then((r)=>{
+      userContext.getloggedinuser().then((r)=>{
         setUserInfo(r)
       })
   },[])

@@ -10,6 +10,7 @@ function Topbar() {
         console.log(loggedIn)
         navigate('/login')
         window.localStorage.removeItem('loggedIn')
+        window.localStorage.removeItem('authToken')
     }
   return (
     <>

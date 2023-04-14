@@ -5,8 +5,6 @@ import axios from 'axios'
 
 function LoginState(props) {
 
-    // const navigate = useNavigate();
-
     const [User, setUser] = useState({
         email: '',
         password:''
@@ -21,7 +19,7 @@ function LoginState(props) {
     const login = async ()=> {
       try {
           let response = await axios.post(`http://localhost:3001/auth/login`,User)
-          setRes(response.data)          
+          setRes(response.data)  
         } 
       catch (error) 
         {
@@ -33,6 +31,7 @@ function LoginState(props) {
       // console.log(res)
       if(res.success) {
           window.localStorage.setItem('loggedIn','true')
+          window.localStorage.setItem('authToken',res.authToken)        
       }
     }, [res])
     

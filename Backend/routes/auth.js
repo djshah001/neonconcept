@@ -4,15 +4,29 @@ const router = express.Router()
 const { body, validationResult } = require('express-validator');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+const multer  = require('multer')
+const path = require('path');
 
 const jwt_secret = 'darshanShah'
+
+const storage = multer.diskStorage({
+    destination:(req,file,callback) => {
+        callback(null,'../images')
+    },
+    filename:(req,file,callback) =>{
+        console.log(file)
+        callback(null,Date.now()+path.extname(file.originalname))
+    }
+})
+
+const upload = multer({storage:storage})
 
 router.post('/createuser',[
     body('name','Enter a valid name').isLength({ min: 2 }),
     body('email','Enter a valid email').isEmail(),
     body('password','length of password must be at least 8').isLength({ min: 8 }),
 ],
-
+upload.single('image'),
 async (req,res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
