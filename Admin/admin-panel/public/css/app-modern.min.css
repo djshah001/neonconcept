@@ -462,7 +462,8 @@ caption {
 
 th {
     text-align: center;
-    text-align: -webkit-match-parent
+    text-align: -webkit-match-parent;
+    width: 5%;
 }
 
 tbody,
@@ -15110,6 +15111,16 @@ html[data-theme=dark] .logo.logo-dark {
     position: relative;
     background-color: var(--ct-theme);
     margin-left: var(--ct-leftbar-width);
+    min-height: calc(100vh - var(--ct-topbar-height) - 2px);
+    padding: 0 .75rem var(--ct-footer-height);
+    -webkit-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out
+}
+
+.full-content-page {
+    position: relative;
+    background-color: var(--ct-theme);
+    /* margin-left: var(--ct-leftbar-width); */
     min-height: calc(100vh - var(--ct-topbar-height) - 2px);
     padding: 0 .75rem var(--ct-footer-height);
     -webkit-transition: all .25s ease-in-out;

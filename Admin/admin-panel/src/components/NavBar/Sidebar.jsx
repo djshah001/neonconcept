@@ -20,6 +20,12 @@ function Sidebar() {
     },
   };
 
+  const sideBarVariants = {
+    initial: {width: "auto", height: "auto"},
+    animate:{width: "auto", height: "auto"},
+    exit:{width: "0", height: "auto"}
+  }
+
   const userContext = useContext(UserContext)
   const location = useLocation()
   
@@ -31,7 +37,12 @@ function Sidebar() {
 
   return (
     <>
-      <div className="leftside-menu">
+      <motion.div 
+      variants={sideBarVariants}
+      initial='initial'
+      animate='animate'
+      exit='exit'
+      className="leftside-menu">
         <div
           className="button-sm-hover"
           data-bs-toggle="tooltip"
@@ -180,7 +191,7 @@ function Sidebar() {
 
           <div className="clearfix"></div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

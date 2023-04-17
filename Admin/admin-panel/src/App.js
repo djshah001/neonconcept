@@ -15,6 +15,7 @@ import DashBoardLayout from './components/layout/DashBoardLayout';
 import User from './components/Users/User';
 import GetUsers from './ContextApi/States/GetUsers';
 import GetLoggedInUser from './ContextApi/States/GetLoggedInUser';
+import SideBarState from './ContextApi/States/SideBarState';
 
 
 function App() {
@@ -32,7 +33,9 @@ function App() {
         <Route exact path='/' element={<PrivateRoute/>}>
           <Route element={
             <GetLoggedInUser>
-              <DashBoardLayout />
+              <SideBarState>
+                <DashBoardLayout />
+              </SideBarState>
             </GetLoggedInUser>
           }>
             <Route exact path='/' element={<Home/>}/>

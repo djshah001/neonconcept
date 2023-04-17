@@ -8,15 +8,20 @@ function CreateUser(props) {
     name: "",
     email: " ",
     password: "",
-    image:""
+    image:''
   });
   const [Counter, setCounter] = useState(0);
 
   const userContext = useContext(UserContext);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    if(e.target.name === 'image'){
+      setUserInfo(prevState => ({ ...prevState, image: e.target.files[0] }));
+      console.log(userInfo.image);
+    }
+    else{
+      setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    }
   };
 
   const createfun = userContext.createUser;
@@ -29,22 +34,15 @@ function CreateUser(props) {
     props.setShowAddUser(false);
   };
 
-  const onImageChange = (e)=>{
-    console.log(e.target.files[0])
-    setUserInfo({ ...userInfo, [e.target.name]: [e.target.files[0] ]});
-    console.log(e.target.name)
-    console.log(userInfo)
-  }
-
   useEffect(() => {
-    navigate("/user");
-  }, [Counter, navigate]);
+    console.log(userInfo.image);
+  }, [userInfo.image]);
   return (
     <>
       <motion.div
         initial={{ y: -300 }}
         animate={{ y: 0 }}
-        exit={{ y: 600 }}
+        exit={{ y: '110vh' }}
         transition={{ type: "spring", stiffness: 400, damping: 15 }}
         className="modal"
         id="exampleModal"
@@ -68,7 +66,7 @@ function CreateUser(props) {
               </div>
               <div className="modal-body">
 
-                <form onSubmit={handleSubmit} autoComplete="off" encType="multipart/form-data">
+                <form onSubmit={handleSubmit} autoComplete="off" >
                   <div className="form-group">
                     <label htmlFor="name" className="col-form-label">
                       Name:
@@ -129,7 +127,7 @@ function CreateUser(props) {
                       name="image"
                       className="form-control"
                       accept="image/*"
-                      onChange={onImageChange}
+                      onChange={(e) => handleChange(e)}
                     />
                   </div>
 

@@ -10,9 +10,8 @@ function User() {
   const [ShowAddUser, setShowAddUser] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
-  
-  const [render, forceUpdate] = useReducer(x => x+1,0)
-  
+  const [render, forceUpdate] = useReducer((x) => x + 1, 0);
+
   useEffect(() => {
     userContext.getUsersArray();
   }, [render]);
@@ -27,12 +26,12 @@ function User() {
   };
 
   const deleteuserbyid = userContext.DeleteUserById;
-  const deleteUser = async(userId) => {
-    console.log(userId)
+  const deleteUser = async (userId) => {
+    console.log(userId);
     const res = await deleteuserbyid(userId);
-    forceUpdate()
-    console.log(res)
-  }
+    forceUpdate();
+    console.log(res);
+  };
 
   const handleChange = (e) => {
     console.log("hi", e.target.name, e.target.value);
@@ -40,7 +39,7 @@ function User() {
   };
 
   return (
-    <div className="content-page">
+    <>
       <div className="container-fluid">
         <div className="row">
           <div className="col-12">
@@ -73,7 +72,17 @@ function User() {
                 <th>{index + 1}</th>
                 <th>{user.name}</th>
                 <th>{user.email}</th>
-                <th>{user.name}</th>
+                <th>
+                  <div className="avatar-md">
+                      <img
+                        src={`${process.env.REACT_APP_HOST}images/profilePic/${user.profilePic}`}
+                        className="avatar-title bg-success rounded-circle"
+                        alt=""
+                        width="100%"
+                        height="100%"
+                      />
+                  </div>
+                </th>
                 <th>{user.name}</th>
                 <th>
                   <motion.button
@@ -126,19 +135,19 @@ function User() {
 
       <div className="col-10">
         <div className="d-flex flex-row-reverse ">
-          <motion.button 
-          whileHover={{ scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          whileTap={{ scale: 0.9 }}
-          className="btn btn-primary rounded-pill"
-          onClick={() => setShowAddUser(true)}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            whileTap={{ scale: 0.9 }}
+            className="btn btn-primary rounded-pill"
+            onClick={() => setShowAddUser(true)}
           >
             <i className="fa-solid fa-plus"></i>
             Create New User
           </motion.button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

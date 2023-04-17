@@ -28,7 +28,13 @@ function GetUsers(props) {
 
     const createUser = async(user)=>{
       try {
-        let response = await axios.post(`${process.env.REACT_APP_HOST}auth/createuser`,user)
+        const formdata = new FormData();
+        formdata.append('name',user.name)
+        formdata.append('email',user.email)
+        formdata.append('password',user.password)
+        formdata.append('image',user.image)
+        // let response = await axios.post(`${process.env.REACT_APP_HOST}auth/createuser`,user)
+        let response = await axios.post(`${process.env.REACT_APP_HOST}auth/createuser`,formdata)
         console.log(response.data)
           return response.data
       } 

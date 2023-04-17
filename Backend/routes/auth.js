@@ -1,35 +1,38 @@
 const User = require('../models/User')
 const express = require('express');
 const router = express.Router()
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const multer  = require('multer')
-const path = require('path');
+const { v4: uuidv4 } = require("uuid");
 
 const jwt_secret = 'darshanShah'
 
 const storage = multer.diskStorage({
     destination:(req,file,callback) => {
-        callback(null,'../images')
+        callback(null,'./images/profilePic')
     },
     filename:(req,file,callback) =>{
-        console.log(file)
-        callback(null,Date.now()+path.extname(file.originalname))
+        console.log({'file':file})
+        const ext = file.mimetype.split("/")[1];
+        callback(null, `${file.originalname.slice(0,8)}.${ext}`);
     }
 })
 
 const upload = multer({storage:storage})
 
-router.post('/createuser',[
-    body('name','Enter a valid name').isLength({ min: 2 }),
-    body('email','Enter a valid email').isEmail(),
-    body('password','length of password must be at least 8').isLength({ min: 8 }),
-],
+router.post('/createuser',
 upload.single('image'),
+[
+    check('name','Enter a valid name').isLength({ min: 2 }),
+    check('email','Enter a valid email').isEmail(),
+    check('password','length of password must be at least 8').isLength({ min: 8 }),
+],
 async (req,res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+        console.log(errors)
         return res.status(400).json({ errors: errors.array() });
     }
     const emailexist = await User.findOne({email:req.body.email}).exec()
@@ -47,6 +50,7 @@ async (req,res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: hash,
+                profilePic: `${req.file.originalname.slice(0,8)}.${req.file.mimetype.split("/")[1]}` ,
               })
 
             const data = {

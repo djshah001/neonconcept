@@ -2,16 +2,16 @@ import { motion } from "framer-motion";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Topbar() {
-    const navigate = useNavigate()
-    const loggedIn = window.localStorage.getItem('loggedIn')
-    const logout = () => {
-        window.localStorage.setItem('loggedIn','false')
-        console.log(loggedIn)
-        navigate('/login')
-        window.localStorage.removeItem('loggedIn')
-        window.localStorage.removeItem('authToken')
-    }
+function Topbar(props) {
+  const navigate = useNavigate();
+  const loggedIn = window.localStorage.getItem("loggedIn");
+  const logout = () => {
+    window.localStorage.setItem("loggedIn", "false");
+    console.log(loggedIn);
+    navigate("/login");
+    window.localStorage.removeItem("loggedIn");
+    window.localStorage.removeItem("authToken");
+  };
   return (
     <>
       <div className="navbar-custom">
@@ -22,11 +22,14 @@ function Topbar() {
                 <img src="/images/logo.png" alt="logo" height="40" />
               </span>
             </div>
-            <h3 className="text-light">neonconcept</h3>
+            <h3 className="text-light">neon11</h3>
 
-            {/* <button className="button-toggle-menu">
-                            <i className="mdi mdi-menu"></i>
-                        </button> */}
+            <button
+              className="button-toggle-menu"
+              onClick={() => props.setSidebar(!props.sidebar)}
+            >
+              <i className="mdi mdi-menu mx-2"></i>
+            </button>
           </div>
 
           <ul className="topbar-menu d-flex align-items-center gap-3">
@@ -97,14 +100,15 @@ function Topbar() {
               </div>
             </li>
             <li className="text-center">
-              <motion.button 
-              whileHover={{ scale: 1.2 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              className="btn btn-primary" 
-              type="submit"
-              onClick={() => {
-                logout()
-                }}>
+              <motion.button
+                whileHover={{ scale: 1.2 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                className="btn btn-primary"
+                type="submit"
+                onClick={() => {
+                  logout();
+                }}
+              >
                 Log Out
               </motion.button>
             </li>
