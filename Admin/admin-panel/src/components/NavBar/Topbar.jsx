@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../ContextApi/contexts/UserContext";
 
 function Topbar(props) {
+
   const navigate = useNavigate();
   const loggedIn = window.localStorage.getItem("loggedIn");
   const logout = () => {
@@ -12,6 +14,16 @@ function Topbar(props) {
     window.localStorage.removeItem("loggedIn");
     window.localStorage.removeItem("authToken");
   };
+
+  const [UserInfo, setUserInfo] = useState({})
+  const userContext = useContext(UserContext)
+  
+  useEffect(()=>{
+      userContext.getloggedinuser().then((r)=>{
+        setUserInfo(r)
+      })
+  },[userContext, userContext.isChanged])
+
   return (
     <>
       <div className="navbar-custom">
@@ -56,14 +68,14 @@ function Topbar(props) {
               <div className="nav-link dropdown-toggle arrow-none nav-user px-2">
                 <span className="account-user-avatar">
                   <img
-                    src="/images/users/avatar-1.jpg"
+                    src={`${process.env.REACT_APP_HOST}images/profilePic/${UserInfo.profilePic}`}
                     alt=""
                     width="32"
-                    className="rounded-circle"
+                    className="img-fluid avatar-sm rounded-circle"
                   />
                 </span>
                 <span className="d-lg-flex flex-column gap-1 d-none">
-                  <h5 className="my-0">Admin</h5>
+                  <h5 className="my-0">{UserInfo.name}</h5>
                   <h6 className="my-0 fw-normal">Admin</h6>
                 </span>
               </div>

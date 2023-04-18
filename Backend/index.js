@@ -15,6 +15,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 app.use('/auth',require('./routes/auth'))
 app.use('/auth',require('./routes/login'))
+app.use('/auth',require('./routes/updateuser'))
 app.use('/auth',require('./routes/getusers'))
 app.use('/auth',require('./routes/getUser'))
 app.use('/auth',require('./routes/getuserbyid'))

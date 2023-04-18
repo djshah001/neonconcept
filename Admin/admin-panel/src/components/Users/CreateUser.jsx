@@ -8,18 +8,23 @@ function CreateUser(props) {
     name: "",
     email: " ",
     password: "",
-    image:''
+    image: "",
+    imgUrl: "",
   });
   const [Counter, setCounter] = useState(0);
 
   const userContext = useContext(UserContext);
 
   const handleChange = (e) => {
-    if(e.target.name === 'image'){
-      setUserInfo(prevState => ({ ...prevState, image: e.target.files[0] }));
-      console.log(userInfo.image);
-    }
-    else{
+    if (e.target.name === "image") {
+      const file = e.target.files[0];
+      setUserInfo((prevState) => ({
+        ...prevState,
+        image: file,
+        imgUrl: URL.createObjectURL(file),
+      }));
+      console.log(userInfo.imgUrl);
+    } else {
       setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
     }
   };
@@ -42,7 +47,7 @@ function CreateUser(props) {
       <motion.div
         initial={{ y: -300 }}
         animate={{ y: 0 }}
-        exit={{ y: '110vh' }}
+        exit={{ y: "110vh" }}
         transition={{ type: "spring", stiffness: 400, damping: 15 }}
         className="modal"
         id="exampleModal"
@@ -65,8 +70,7 @@ function CreateUser(props) {
                 />
               </div>
               <div className="modal-body">
-
-                <form onSubmit={handleSubmit} autoComplete="off" >
+                <form onSubmit={handleSubmit} autoComplete="off">
                   <div className="form-group">
                     <label htmlFor="name" className="col-form-label">
                       Name:
@@ -118,14 +122,50 @@ function CreateUser(props) {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="example-fileinput" className="col-form-label">
-                      Enter Image:
+                    <label
+                      htmlFor="example-fileinput"
+                      className="col-form-label"
+                    >
+                      Click to Upload New Image:
                     </label>
+
+                    {userInfo.imgUrl ? (
+                      <motion.img
+                        whileHover={{ scale: 1.3 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 10,
+                        }}
+                        src={userInfo.imgUrl}
+                        alt=""
+                        className="edit-img img-fluid avatar-md rounded-circle m-3"
+                        onClick={() =>
+                          document.getElementById("fileInput").click()
+                        }
+                      />
+                    ) : (
+                      <motion.img
+                        whileHover={{ scale: 1.3 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 10,
+                        }}
+                        src={`${process.env.REACT_APP_HOST}images/profilePic/OIP.jpeg`}
+                        alt=""
+                        className="edit-img img-fluid avatar-md rounded-circle m-3"
+                        onClick={() =>
+                          document.getElementById("fileInput").click()
+                        }
+                      />
+                    )}
+
                     <input
                       type="file"
-                      id="example-fileinput"
+                      id="fileInput"
                       name="image"
-                      className="form-control"
+                      className="form-control d-none display-none"
                       accept="image/*"
                       onChange={(e) => handleChange(e)}
                     />

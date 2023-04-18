@@ -1,14 +1,20 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import UserContext from "../../ContextApi/contexts/UserContext";
 import EditUser from "./EditUser";
-import { AnimatePresence, motion, sync } from "framer-motion";
+import { AnimatePresence, motion,} from "framer-motion";
 import CreateUser from "./CreateUser";
 
 function User() {
   const userContext = useContext(UserContext);
   const [ShowEdit, setShowEdit] = useState(false);
   const [ShowAddUser, setShowAddUser] = useState(false);
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: " ",
+    password: "",
+    image:'',
+    imageUrl: "",
+  });
 
   const [render, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -16,27 +22,49 @@ function User() {
     userContext.getUsersArray();
   }, [render]);
 
+  useEffect(() => {
+    console.log(userInfo.image);
+  }, [userInfo.image]);
+
   const getuserbyid = userContext.getuserbyid;
   const handleClick = async (userId) => {
     console.log(userId);
     const res = await getuserbyid(userId);
+    console.log(res)
     setUserInfo(res);
-    console.log(userInfo);
+    console.log(userInfo)
     setShowEdit(!ShowEdit);
   };
 
   const deleteuserbyid = userContext.DeleteUserById;
   const deleteUser = async (userId) => {
-    console.log(userId);
     const res = await deleteuserbyid(userId);
     forceUpdate();
     console.log(res);
   };
 
   const handleChange = (e) => {
-    console.log("hi", e.target.name, e.target.value);
-    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    if(e.target.name === 'image'){
+    const file = e.target.files[0];
+    setUserInfo((prevState) => ({
+      ...prevState,
+      image: file,
+      imageUrl: URL.createObjectURL(file),
+    }));
+    }
+    else{
+      setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+    }
   };
+
+  const updateUser = userContext.updateUser
+  const handleUpdate = async(e) => {
+    e.preventDefault();
+    const res = await updateUser(userInfo)
+    forceUpdate()
+    setShowEdit(!ShowEdit)
+    console.log(res)
+  }
 
   return (
     <>
@@ -59,6 +87,7 @@ function User() {
             <th>Name</th>
             <th>Email</th>
             <th>Image</th>
+            <th>password</th>
             <th>Status</th>
             <th>Action</th>
             {/* <th>Salary</th> */}
@@ -73,16 +102,15 @@ function User() {
                 <th>{user.name}</th>
                 <th>{user.email}</th>
                 <th>
-                  <div className="avatar-md">
                       <img
                         src={`${process.env.REACT_APP_HOST}images/profilePic/${user.profilePic}`}
-                        className="avatar-title bg-success rounded-circle"
+                        className="img-fluid avatar-sm rounded-circle"
                         alt=""
                         width="100%"
                         height="100%"
                       />
-                  </div>
                 </th>
+                <th>{user.password}</th>
                 <th>{user.name}</th>
                 <th>
                   <motion.button
@@ -120,6 +148,8 @@ function User() {
             setShowEdit={setShowEdit}
             userInfo={userInfo}
             handleChange={handleChange}
+            handleUpdate={handleUpdate}
+            imgUrl={userInfo.imageUrl}
           />
         )}
       </AnimatePresence>

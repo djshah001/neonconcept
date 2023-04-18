@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import UserContext from "../../ContextApi/contexts/UserContext";
 
 function Sidebar() {
@@ -27,7 +27,6 @@ function Sidebar() {
   }
 
   const userContext = useContext(UserContext)
-  const location = useLocation()
   
   useEffect(()=>{
       userContext.getloggedinuser().then((r)=>{
@@ -60,12 +59,12 @@ function Sidebar() {
           <div className="leftbar-user">
             <NavLink to="pages-profile.html">
               <img
-                src="/images/users/avatar-1.jpg"
+                src={`${process.env.REACT_APP_HOST}images/profilePic/${UserInfo.profilePic}`}
                 alt=""
                 height="42"
-                className="rounded-circle shadow-sm"
+                className="img-fluid avatar-lg rounded-circle"
               />
-              <span className="leftbar-user-name mt-2">{UserInfo.name}</span>
+              <h3 className="leftbar-user-name mt-2">{UserInfo.name}</h3>
             </NavLink>
           </div>
 

@@ -34,7 +34,8 @@ async (req,res) => {
 
     try {
         if(userCred){
-            const matchPassword = await bcrypt.compareSync(password,userCred.password)
+            // const matchPassword = await bcrypt.compareSync(password,userCred.password)
+            const matchPassword = password === userCred.password
             if(matchPassword){
                 // res.send(userCred)
                 const data = {
