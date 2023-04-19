@@ -28,15 +28,22 @@ const upload = multer({ storage: storage })
 router.post('/updateuser',
     upload.single('image'),
     [
-        check('name', 'Enter a valid name').isLength({ min: 2 }),
+        check('name')
+            .matches(/^[a-zA-Z ]+$/)
+            .withMessage('Name can only contain alphabets and spaces')
+            .isLength({ min: 2 })
+            .withMessage('Name must be at least 2 characters long'),
+            
         check('email', 'Enter a valid email').isEmail(),
-        check('password', 'length of password must be at least 8').isLength({ min: 8 }),
+
+        check('password', 'Length of password must be at least 8')
+            .isLength({ min: 8 })
+            .withMessage('Password must be at least 8 characters long'),
     ],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            console.log(errors)
-            return res.status(400).json({ errors: errors.array() });
+            return res.send({ errors: errors.array() });
         }
 
         // const emailexist = await User.findOne({ email: req.body.email }).exec()

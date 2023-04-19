@@ -15,6 +15,7 @@ function User() {
     image:'',
     imageUrl: "",
   });
+  const [Errors, setErrors] = useState([]);
 
   const [render, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -62,8 +63,12 @@ function User() {
     e.preventDefault();
     const res = await updateUser(userInfo)
     forceUpdate()
-    setShowEdit(!ShowEdit)
-    console.log(res)
+    if (!res.errors) {
+      setShowEdit(!ShowEdit)
+    } else {
+      setErrors(res.errors);
+      console.log(Errors);
+    }
   }
 
   return (
@@ -94,7 +99,7 @@ function User() {
           </tr>
         </thead>
 
-        <tbody>
+        <tbody >
           {userContext.users.map((user, index) => {
             return (
               <tr key={user._id}>
@@ -150,6 +155,7 @@ function User() {
             handleChange={handleChange}
             handleUpdate={handleUpdate}
             imgUrl={userInfo.imageUrl}
+            Errors={Errors}
           />
         )}
       </AnimatePresence>

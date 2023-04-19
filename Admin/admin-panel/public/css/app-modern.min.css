@@ -549,6 +549,9 @@ button:not(:disabled) {
 textarea {
     resize: vertical
 }
+textarea::placeholder {
+    color: #000;
+}
 
 fieldset {
     min-width: 0;
@@ -2675,10 +2678,10 @@ progress {
     display: block;
     width: 100%;
     padding: .45rem .9rem;
-    font-size: .9rem;
+    font-size: 1.1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: var(--ct-body-color);
+    color: #000;
     background-color: var(--ct-input-bg-custom);
     border: 1px solid var(--ct-border-color);
     -webkit-appearance: none;
@@ -2707,7 +2710,6 @@ progress {
 }
 
 .form-control:focus {
-    color: var(--ct-body-color);
     background-color: var(--ct-input-bg-custom);
     border-color: var(--ct-border-color);
     outline: 0;
@@ -3330,7 +3332,7 @@ textarea.form-control-lg {
 
 .form-floating>.form-control-plaintext::placeholder,
 .form-floating>.form-control::placeholder {
-    color: transparent
+    color: #000;
 }
 
 .form-floating>.form-control-plaintext:not(:-moz-placeholder-shown),

@@ -24,5 +24,7 @@ app.use('/addproducts',require('./routes/addProducts'))
 app.use('/getproducts',require('./routes/getProducts'))
 app.use('/addneonsigns',require('./routes/addneonSigns'))
 app.use('/getneonsigns',require('./routes/getneonSigns'))
+app.use('/',require('./routes/BannerRoutes/createbanner'))
+app.use('/',require('./routes/BannerRoutes/getbanners'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

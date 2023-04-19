@@ -29,6 +29,13 @@ function EditUser(props) {
               />
             </div>
             <div className="modal-body">
+              {props.Errors.map((err, i) => {
+                return (
+                  <div key={i} className="text-danger text-center">
+                    {err.msg}
+                  </div>
+                );
+              })}
               <form>
                 <div className="form-group">
                   <label htmlFor="name" className="col-form-label">
@@ -84,23 +91,37 @@ function EditUser(props) {
                     Click to Upload New Image:
                   </label>
 
-                  {props.imgUrl?
+                  {props.imgUrl ? (
                     <motion.img
-                    whileHover={{ scale: 1.3 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    src={props.imgUrl}
-                    alt=""
-                    className="edit-img img-fluid avatar-md rounded-circle m-3"
-                    onClick={() => document.getElementById("fileInput").click()}
-                  />
-                  :<motion.img
-                    whileHover={{ scale: 1.3 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    src={`${process.env.REACT_APP_HOST}images/profilePic/${props.userInfo.profilePic}`}
-                    alt=""
-                    className="edit-img img-fluid avatar-md rounded-circle m-3"
-                    onClick={() => document.getElementById("fileInput").click()}
-                  />}
+                      whileHover={{ scale: 1.3 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
+                      src={props.imgUrl}
+                      alt=""
+                      className="edit-img img-fluid avatar-md rounded-circle m-3"
+                      onClick={() =>
+                        document.getElementById("fileInput").click()
+                      }
+                    />
+                  ) : (
+                    <motion.img
+                      whileHover={{ scale: 1.3 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
+                      src={`${process.env.REACT_APP_HOST}images/profilePic/${props.userInfo.profilePic}`}
+                      alt=""
+                      className="edit-img img-fluid avatar-md rounded-circle m-3"
+                      onClick={() =>
+                        document.getElementById("fileInput").click()
+                      }
+                    />
+                  )}
 
                   <input
                     type="file"

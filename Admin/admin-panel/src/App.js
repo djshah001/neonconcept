@@ -16,6 +16,8 @@ import User from './components/Users/User';
 import GetUsers from './ContextApi/States/GetUsers';
 import GetLoggedInUser from './ContextApi/States/GetLoggedInUser';
 import SideBarState from './ContextApi/States/SideBarState';
+import BannerTable from './components/Banner-Master/BannerTable';
+import BannerState from './ContextApi/States/BannerState';
 
 
 function App() {
@@ -23,28 +25,37 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route element={<Rootlayout/>}>
+      <Route element={<Rootlayout />}>
         <Route path="/login" element={
-            <GetLoggedInUser>
-              <Login />
-            </GetLoggedInUser>
+          <GetLoggedInUser>
+            <Login />
+          </GetLoggedInUser>
 
-        }/>
-        <Route exact path='/' element={<PrivateRoute/>}>
-          <Route element={
-            <GetLoggedInUser>
-              <SideBarState>
-                <DashBoardLayout />
-              </SideBarState>
-            </GetLoggedInUser>
-          }>
-            <Route exact path='/' element={<Home/>}/>
+        } />
+        <Route exact path='/' element={<PrivateRoute />}>
+            <Route element={
+              <GetLoggedInUser>
+                <SideBarState>
+                  <DashBoardLayout />
+                </SideBarState>
+              </GetLoggedInUser>
+            }>
+
+            <Route exact path='/' element={<Home />} />
+
             <Route exact path='/user' element={
               <GetUsers>
-                <User/>
+                <User />
               </GetUsers>
-            }/>
-            <Route exact path='/hi' element={<div>hi</div>}/>
+            } />
+            
+            <Route exact path='/banner' element={
+              <BannerState>
+                <BannerTable />
+              </BannerState>
+            } />
+
+            <Route exact path='/hi' element={<div>hi</div>} />
           </Route>
         </Route>
       </Route>

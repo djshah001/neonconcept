@@ -76,7 +76,7 @@ function GetUsers(props) {
   }
 
   return (
-    <UserContext.Provider value={{ getUsersArray, getuserbyid, createUser, updateUser, users, DeleteUserById,isChanged}}>
+    <UserContext.Provider value={{ getUsersArray, getuserbyid, createUser, updateUser, users, DeleteUserById}}>
       {props.children}
     </UserContext.Provider>
   )

@@ -25,3 +25,6 @@ yarn-error.log*
 
 admin-html
 fonts
+Backend/images/banners
+Backend/images/profilePic
+

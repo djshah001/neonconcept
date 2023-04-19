@@ -32,7 +32,7 @@ function Sidebar() {
       userContext.getloggedinuser().then((r)=>{
         setUserInfo(r)
       })
-  },[])
+  },[userContext, userContext.isChanged])
 
   return (
     <>
@@ -138,7 +138,7 @@ function Sidebar() {
                     id="sidebarEcommerce">
                     <ul className="side-nav-second-level">
                       <li>
-                        <NavLink  to="">Banner Master</NavLink>
+                        <NavLink  to="/banner">Banner Master</NavLink>
                       </li>
                       <li>
                         <NavLink  to=""> CMS Master</NavLink>

@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import UserContext from '../contexts/UserContext'
 import axios from 'axios'
 
 
 function GetLoggedInUser(props) {
+  const [isChanged, setIsChanged] = useState(false);
 
+  const updateIsChanged = () => {
+    setIsChanged(!isChanged);
+  };
 
   const getloggedinuser = async () => {
     try {
@@ -14,6 +18,7 @@ function GetLoggedInUser(props) {
           authToken: window.localStorage.getItem('authToken'),
         }
       });
+      updateIsChanged()
       return response.data
     } catch (error) {
       console.warn(error);
@@ -21,7 +26,7 @@ function GetLoggedInUser(props) {
   };
 
   return (
-    <UserContext.Provider value={{ getloggedinuser}}>
+    <UserContext.Provider value={{ getloggedinuser,isChanged}}>
       {props.children}
     </UserContext.Provider>
   )

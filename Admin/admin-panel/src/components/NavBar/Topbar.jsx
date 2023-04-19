@@ -72,6 +72,7 @@ function Topbar(props) {
                     alt=""
                     width="32"
                     className="img-fluid avatar-sm rounded-circle"
+                    style={{ display: UserInfo.profilePic ? "block" : "none" }}
                   />
                 </span>
                 <span className="d-lg-flex flex-column gap-1 d-none">

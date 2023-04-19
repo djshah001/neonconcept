@@ -1,53 +1,48 @@
 import { motion } from "framer-motion";
 import React, { useContext, useEffect, useState } from "react";
-import UserContext from "../../ContextApi/contexts/UserContext";
+import BannerContext from "../../ContextApi/contexts/BannerContext";
 
-function CreateUser(props) {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    email: " ",
-    password: "",
+function CreateBanner(props) {
+  const { createBanner } = useContext(BannerContext);
+
+  const [Errors, setErrors] = useState([]);
+  const [BannerInfo, setBannerInfo] = useState({
+    title: "",
+    subTitle: "",
     image: "",
     imgUrl: "",
   });
 
-  const [Counter, setCounter] = useState(0);
-  const [Errors, setErrors] = useState([]);
-
-  const userContext = useContext(UserContext);
-
-  const handleChange = (e) => {
-    if (e.target.name === "image") {
-      const file = e.target.files[0];
-      setUserInfo((prevState) => ({
-        ...prevState,
-        image: file,
-        imgUrl: URL.createObjectURL(file),
-      }));
-      console.log(userInfo.imgUrl);
-    } else {
-      setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
-    }
-  };
-
-  const createfun = userContext.createUser;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await createfun(userInfo);
-    props.forceUpdate();
-    setCounter(Counter + 1);
+    const res = await createBanner(BannerInfo);
     if (!res.errors) {
-      props.setShowAddUser(false);
+      props.setShowCreateBanner(false);
+      props.forceUpdate()
     } else {
       setErrors(res.errors);
       console.log(Errors);
     }
   };
 
-  useEffect(() => {
-    console.log(userInfo.image);
-  }, [userInfo.image]);
-  
+  const handleChange = (e) => {
+    if (e.target.name === "image") {
+      const file = e.target.files[0];
+      setBannerInfo((prevState) => ({
+        ...prevState,
+        image: file,
+        imgUrl: URL.createObjectURL(file),
+      }));
+      console.log(BannerInfo.imgUrl);
+    } else {
+      setBannerInfo({ ...BannerInfo, [e.target.name]: e.target.value });
+    }
+  };
+
+  //   useEffect(() => {
+  //     console.log(BannerInfo);
+  //   }, [BannerInfo]);
+
   return (
     <>
       <motion.div
@@ -71,7 +66,7 @@ function CreateUser(props) {
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   className="fa-solid fa-xmark fa-xl"
                   onClick={() => {
-                    props.setShowAddUser(false);
+                    props.setShowCreateBanner(false);
                   }}
                 />
               </div>
@@ -83,54 +78,51 @@ function CreateUser(props) {
                     </div>
                   );
                 })}
+                <div
+                  class="alert alert-success alert-dismissible bg-success text-white border-0 fade show"
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                  <strong>Success - </strong> A simple success alert—check it
+                  out!
+                </div>
                 <form onSubmit={handleSubmit} autoComplete="off">
                   <div className="form-group">
-                    <label htmlFor="name" className="col-form-label">
-                      Name:
+                    <label htmlFor="title" className="col-form-label">
+                      Title:
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="name"
-                      name="name"
-                      value={userInfo.name}
+                      id="title"
+                      name="title"
+                      value={BannerInfo.title}
                       onChange={(e) => handleChange(e)}
-                      placeholder="Enter Name"
+                      placeholder="Enter Title"
                       required
                     />
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="email" className="col-form-label">
-                      Email:
+                    <label htmlFor="subTitle" className="col-form-label">
+                      Sub Title :
                     </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      name="email"
-                      value={userInfo.email}
-                      onChange={(e) => handleChange(e)}
-                      placeholder="Enter your email address"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="password" className="col-form-label">
-                      password:
-                    </label>
-                    <div className="input-group input-group-merge">
-                      <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={userInfo.password}
+                    <div class="form-floating">
+                      <textarea
+                        class="form-control"
+                        placeholder="Enter Sub Title"
+                        id="subTitle"
+                        name="subTitle"
+                        value={BannerInfo.subTitle}
                         onChange={(e) => handleChange(e)}
-                        className="form-control"
-                        placeholder="Enter your password"
-                        autoComplete="no-password"
-                      />
+                        required
+                        style={{ height: "100px" }}
+                      ></textarea>
                     </div>
                   </div>
 
@@ -142,7 +134,7 @@ function CreateUser(props) {
                       Click to Upload New Image:
                     </label>
 
-                    {userInfo.imgUrl ? (
+                    {BannerInfo.imgUrl ? (
                       <motion.img
                         whileHover={{ scale: 1.3 }}
                         transition={{
@@ -150,7 +142,7 @@ function CreateUser(props) {
                           stiffness: 400,
                           damping: 10,
                         }}
-                        src={userInfo.imgUrl}
+                        src={BannerInfo.imgUrl}
                         alt=""
                         className="edit-img img-fluid avatar-md rounded-circle m-3"
                         onClick={() =>
@@ -196,7 +188,7 @@ function CreateUser(props) {
                       className="btn btn-danger"
                       data-dismiss="modal"
                       onClick={() => {
-                        props.setShowAddUser(false);
+                        props.setShowCreateBanner(false);
                       }}
                     >
                       Close
@@ -224,4 +216,4 @@ function CreateUser(props) {
   );
 }
 
-export default CreateUser;
+export default CreateBanner;
