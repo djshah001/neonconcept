@@ -26,5 +26,8 @@ app.use('/addneonsigns',require('./routes/addneonSigns'))
 app.use('/getneonsigns',require('./routes/getneonSigns'))
 app.use('/',require('./routes/BannerRoutes/createbanner'))
 app.use('/',require('./routes/BannerRoutes/getbanners'))
+app.use('/',require('./routes/BannerRoutes/getbannerbyid'))
+app.use('/',require('./routes/BannerRoutes/updatebanner'))
+app.use('/',require('./routes/BannerRoutes/deletebanner'))
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

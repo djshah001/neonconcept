@@ -6863,6 +6863,7 @@ fieldset:disabled .btn {
     overflow-y: auto;
     outline: 0;
     padding: 2rem;
+    background-color: #41464b7b;
     /* background-color: #fff; */
 }
 
@@ -6905,12 +6906,24 @@ fieldset:disabled .btn {
 }
 
 .modal-dialog-scrollable .modal-content {
+    /* width: 600px; */
     max-height: 100%;
-    overflow: hidden
+    overflow: auto;
+    border-radius: 20px;
 }
 
 .modal-dialog-scrollable .modal-body {
     overflow-y: auto
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+    background-color: #000000;
+    width: 5px;
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    width: 5px;
 }
 
 .modal-dialog-centered {

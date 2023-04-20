@@ -7,6 +7,7 @@ function CreateBanner(props) {
 
   const [Errors, setErrors] = useState([]);
   const [BannerInfo, setBannerInfo] = useState({
+    topTitle: "",
     title: "",
     subTitle: "",
     image: "",
@@ -18,7 +19,7 @@ function CreateBanner(props) {
     const res = await createBanner(BannerInfo);
     if (!res.errors) {
       props.setShowCreateBanner(false);
-      props.forceUpdate()
+      props.forceUpdate();
     } else {
       setErrors(res.errors);
       console.log(Errors);
@@ -50,12 +51,12 @@ function CreateBanner(props) {
         animate={{ y: 0 }}
         exit={{ y: "110vh" }}
         transition={{ type: "spring", stiffness: 400, damping: 15 }}
-        className="modal"
+        className="modal fade"
         id="exampleModal"
         tabIndex="-1"
       >
-        <div className="modal-dialog " role="document">
-          <div className="Modal-content">
+        <div className="modal-dialog modal-dialog-scrollable" role="document">
+          <div className="modal-content">
             <div className="modal-body">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
@@ -79,12 +80,12 @@ function CreateBanner(props) {
                   );
                 })}
                 <div
-                  class="alert alert-success alert-dismissible bg-success text-white border-0 fade show"
+                  className="alert alert-success alert-dismissible bg-success text-white border-0 fade show"
                   role="alert"
                 >
                   <button
                     type="button"
-                    class="btn-close btn-close-white"
+                    className="btn-close btn-close-white"
                     data-bs-dismiss="alert"
                     aria-label="Close"
                   ></button>
@@ -92,6 +93,23 @@ function CreateBanner(props) {
                   out!
                 </div>
                 <form onSubmit={handleSubmit} autoComplete="off">
+
+                  <div className="form-group">
+                    <label htmlFor="topTitle" className="col-form-label">
+                      Top Title:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="title"
+                      name="topTitle"
+                      value={BannerInfo.topTitle}
+                      onChange={(e) => handleChange(e)}
+                      placeholder="Enter Title"
+                      required
+                    />
+                  </div>
+
                   <div className="form-group">
                     <label htmlFor="title" className="col-form-label">
                       Title:
@@ -112,9 +130,9 @@ function CreateBanner(props) {
                     <label htmlFor="subTitle" className="col-form-label">
                       Sub Title :
                     </label>
-                    <div class="form-floating">
+                    <div className="form-floating">
                       <textarea
-                        class="form-control"
+                        className="form-control"
                         placeholder="Enter Sub Title"
                         id="subTitle"
                         name="subTitle"
@@ -144,7 +162,9 @@ function CreateBanner(props) {
                         }}
                         src={BannerInfo.imgUrl}
                         alt=""
-                        className="edit-img img-fluid avatar-md rounded-circle m-3"
+                        className="rounded m-3"
+                        width="50%"
+                        height="50%"
                         onClick={() =>
                           document.getElementById("fileInput").click()
                         }
@@ -159,7 +179,9 @@ function CreateBanner(props) {
                         }}
                         src={`${process.env.REACT_APP_HOST}images/profilePic/OIP.jpeg`}
                         alt=""
-                        className="edit-img img-fluid avatar-md rounded-circle m-3"
+                        className="rounded m-3"
+                        width="50%"
+                        height="50%"
                         onClick={() =>
                           document.getElementById("fileInput").click()
                         }
@@ -203,7 +225,7 @@ function CreateBanner(props) {
                       type="submit"
                       className="btn btn-primary"
                     >
-                      Submit
+                      Create
                     </motion.button>
                   </div>
                 </form>

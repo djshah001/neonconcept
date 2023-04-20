@@ -44,6 +44,7 @@ router.post('/createbanner',
 
         try {
             const banner = await Banner.create({
+                topTitle: req.body.topTitle,
                 title: req.body.title,
                 subTitle: req.body.subTitle,
                 bannerImg: bannerImg,
