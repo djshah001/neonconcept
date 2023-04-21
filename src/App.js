@@ -21,6 +21,7 @@ import NeonSign from './components/NeonSigns/NeonSign';
 import NeonGO from './components/NeonGo/NeonGO';
 import GetProducts from './contexts/GetProducts';
 import DropDownContext from './contexts/DropDownContext';
+import HomeState from './states/HomeState';
 
 
 
@@ -29,26 +30,30 @@ function App() {
 
   const [neonSignarr, setneonSignarr] = useState([])
   const dropDown = useContext(DropDownContext);
-  useEffect(()=>{
-    dropDown.getneonsigns().then((dp)=>{setneonSignarr(dp)})
+  useEffect(() => {
+    dropDown.getneonsigns().then((dp) => { setneonSignarr(dp) })
     // console.log(dropDown)
-},[])
+  }, [])
 
-  
+
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Rootlayout/>}>
-        <Route path="/" element={<Home />}/>
-        <Route path="/about" element={<Aboutus/>}/>
+      <Route path="/" element={<Rootlayout />}>
+        <Route path="/" element={
+          <HomeState>
+            <Home />
+          </HomeState>
+        } />
+        <Route path="/about" element={<Aboutus />} />
 
-        {workInfo.map((obj,value) =>{
-          return <Route path={'/'+obj.path} key={obj.path}
+        {workInfo.map((obj, value) => {
+          return <Route path={'/' + obj.path} key={obj.path}
             element={
-            <Signs title={obj.title}
-            key={obj.path}
-            description={obj.description}
-            route='Gellery' path={obj.path} arr={obj.arr}/>
-            }/>
+              <Signs title={obj.title}
+                key={obj.path}
+                description={obj.description}
+                route='Gellery' path={obj.path} arr={obj.arr} />
+            } />
         })}
 
         {
@@ -58,35 +63,35 @@ function App() {
               key={obj._id}
               element={
                 <NeonSign
-                    title={obj.title}
-                    description={obj.description}
-                    videoUrls={obj.videoUrls}
-                    route={obj.title}
-                  />
+                  title={obj.title}
+                  description={obj.description}
+                  videoUrls={obj.videoUrls}
+                  route={obj.title}
+                />
               }
             />
           })
         }
 
-        <Route path="/flexboard"  
-        element={<LedBoard
-          title="Flex Board" 
-          description="Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit."
-          route="FLEX BOARD"
-        />}/>
+        <Route path="/flexboard"
+          element={<LedBoard
+            title="Flex Board"
+            description="Vestibulum at accumsan lectus, vestibulum porttitor metus. Nullam convallis erat vel iaculis posuere. Praesent tempor elementum tellus, eget aliquet nibh sollicitudin vel. Donec lacinia tortor sed felis mattis tempus. Cras euismod commodo nulla. Proin ut viverra erat, in lobortis lectus. Etiam consequat nisi eu arcu sollicitudin venenatis. Nullam at elementum erat, at aliquet velit."
+            route="FLEX BOARD"
+          />} />
 
-        <Route path="/customize" 
-        element={<Custom
-          title='Neon Customization'
-          route="CUSTOMIZATION"
-        />}/>
+        <Route path="/customize"
+          element={<Custom
+            title='Neon Customization'
+            route="CUSTOMIZATION"
+          />} />
 
         {
-          ledboardInfo.map((obj, i) =>{
+          ledboardInfo.map((obj, i) => {
             return (
-              <Route path={'/ledboard/'+obj.path} key={obj.path}
+              <Route path={'/ledboard/' + obj.path} key={obj.path}
                 element={
-                  <LedBoard 
+                  <LedBoard
                     title={obj.title}
                     description={obj.description}
                     imgurls={obj.imgurls}
@@ -99,39 +104,39 @@ function App() {
           })
         }
 
-        <Route path={neonGoInfo.path} 
-        element={(<GetProducts>
-          <NeonGO 
-          title={neonGoInfo.title}
-          route={neonGoInfo.title}
-          products={neonGoInfo.products}
-          />
-        </GetProducts>)
-        }
+        <Route path={neonGoInfo.path}
+          element={(<GetProducts>
+            <NeonGO
+              title={neonGoInfo.title}
+              route={neonGoInfo.title}
+              products={neonGoInfo.products}
+            />
+          </GetProducts>)
+          }
         />
 
-        {workInfo.map((obj,value) =>{
-          return <Route path={'/gellery/'+obj.path} key={obj.path}
+        {workInfo.map((obj, value) => {
+          return <Route path={'/gellery/' + obj.path} key={obj.path}
             element={
-            <Gellery title={obj.title}
-            key={obj.path}
-            description={obj.description}
-            route='Gellery' path={obj.path} arr={obj.arr}/>}
-            />
+              <Gellery title={obj.title}
+                key={obj.path}
+                description={obj.description}
+                route='Gellery' path={obj.path} arr={obj.arr} />}
+          />
         })}
 
-        <Route path="/contact" 
+        <Route path="/contact"
           element={<Contact
-          title='Our Creatives'
-          route="Contact Us"
-        />}/>
-        
+            title='Our Creatives'
+            route="Contact Us"
+          />} />
+
       </Route>
     ))
 
   return (
     <NavState>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </NavState>
   )
 }

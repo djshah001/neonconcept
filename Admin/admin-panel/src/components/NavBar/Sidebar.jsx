@@ -4,10 +4,19 @@ import { NavLink } from "react-router-dom";
 import UserContext from "../../ContextApi/contexts/UserContext";
 
 function Sidebar() {
-  const [dropdown, setDropdown] = useState(false);
-  const [dropdown2, setDropdown2] = useState(false);
-  const [UserInfo, setUserInfo] = useState({})
+  const [dropdown, setDropdown] = useState({
+    show:false,
+    rotate:false
+  });
+  const [dropdown2, setDropdown2] = useState({
+    show:false,
+    rotate:false
+  });
+  const [UserInfo, setUserInfo] = useState({});
 
+  const handleTap = () => {
+    setDropdown({...dropdown,show: !dropdown.show,rotate: !dropdown.rotate});
+  };
 
   const variants = {
     hidden: {
@@ -21,27 +30,28 @@ function Sidebar() {
   };
 
   const sideBarVariants = {
-    initial: {width: "auto", height: "auto"},
-    animate:{width: "auto", height: "auto"},
-    exit:{width: "0", height: "auto"}
-  }
+    initial: { width: "auto", height: "auto" },
+    animate: { width: "auto", height: "auto" },
+    exit: { width: "0", height: "auto" },
+  };
 
-  const userContext = useContext(UserContext)
-  
-  useEffect(()=>{
-      userContext.getloggedinuser().then((r)=>{
-        setUserInfo(r)
-      })
-  },[userContext, userContext.isChanged])
+  const userContext = useContext(UserContext);
+
+  useEffect(() => {
+    userContext.getloggedinuser().then((r) => {
+      setUserInfo(r);
+    });
+  }, [userContext, userContext.isChanged]);
 
   return (
     <>
-      <motion.div 
-      variants={sideBarVariants}
-      initial='initial'
-      animate='animate'
-      exit='exit'
-      className="leftside-menu">
+      <motion.div
+        variants={sideBarVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="leftside-menu"
+      >
         <div
           className="button-sm-hover"
           data-bs-toggle="tooltip"
@@ -75,18 +85,20 @@ function Sidebar() {
               <h1
                 className="side-nav-link"
                 onClick={() => {
-                  setDropdown(!dropdown);
+                  handleTap();
                 }}
               >
                 <i className="uil uil-tachometer-fast"></i>
                 <span> set up </span>
-                <motion.span 
-                // whileTap={{rotateX:'180deg'}}
-                className="menu-arrow"></motion.span>
+                <motion.i
+                  initial={{rotate:0}}
+                  animate={{ rotate: dropdown.rotate ? 0 : -90 }}
+                  className="fa-solid fa-angle-down mx-4"
+                ></motion.i>
               </h1>
 
               <AnimatePresence>
-                {dropdown && (
+                {dropdown.show && (
                   <motion.div
                     variants={variants}
                     initial="hidden"
@@ -112,80 +124,82 @@ function Sidebar() {
                   </motion.div>
                 )}
               </AnimatePresence>
-
             </li>
 
             <li className="side-nav-item">
               <h1
                 className="side-nav-link"
                 onClick={() => {
-                  setDropdown2(!dropdown2);
+                  setDropdown2({...dropdown,show: !dropdown2.show,rotate: !dropdown2.rotate});
                 }}
               >
                 <i className="uil-store"></i>
                 <span> Ecommerce </span>
-                <span className="menu-arrow"></span>
+                <motion.i
+                  initial={{rotate:0}}
+                  animate={{ rotate: dropdown2.rotate ? 0 : -90 }}
+                  className="fa-solid fa-angle-down mx-4"
+                ></motion.i>
               </h1>
 
               <AnimatePresence>
-                {dropdown2 && (
-                  <motion.div 
+                {dropdown2.show && (
+                  <motion.div
                     variants={variants}
                     initial="hidden"
                     animate="shown"
                     exit="hidden"
-                    className="collaps" 
-                    id="sidebarEcommerce">
+                    className="collaps"
+                    id="sidebarEcommerce"
+                  >
                     <ul className="side-nav-second-level">
                       <li>
-                        <NavLink  to="/banner">Banner Master</NavLink>
+                        <NavLink to="/banner">Banner Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to=""> CMS Master</NavLink>
+                        <NavLink to=""> CMS Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Email Template Master</NavLink>
+                        <NavLink to="">Email Template Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">MailAddress Master</NavLink>
+                        <NavLink to="">MailAddress Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Enquiry Master</NavLink>
+                        <NavLink to="">Enquiry Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Size Master</NavLink>
+                        <NavLink to="">Size Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Color Master</NavLink>
+                        <NavLink to="">Color Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Font Master</NavLink>
+                        <NavLink to="">Font Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Social Icon Master</NavLink>
+                        <NavLink to="">Social Icon Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Product Category Master</NavLink>
+                        <NavLink to="">Product Category Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Product Master</NavLink>
+                        <NavLink to="">Product Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to=""> Product Image Master</NavLink>
+                        <NavLink to=""> Product Image Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Product Video Master</NavLink>
+                        <NavLink to="">Product Video Master</NavLink>
                       </li>
                       <li>
-                        <NavLink  to="">Gallery Master</NavLink>
+                        <NavLink to="">Gallery Master</NavLink>
                       </li>
                     </ul>
                   </motion.div>
                 )}
               </AnimatePresence>
-              
             </li>
-
           </ul>
 
           <div className="clearfix"></div>

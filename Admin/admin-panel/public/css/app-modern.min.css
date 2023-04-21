@@ -450,7 +450,7 @@ svg {
 
 table {
     caption-side: bottom;
-    border-collapse: collapse
+    border-collapse: collapse;
 }
 
 caption {
@@ -15241,7 +15241,7 @@ html[data-sidenav-user=true] .leftbar-user {
     transition: transform .15s, -webkit-transform .15s;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    transform: rotate(90deg);
+    transform: rotate(180deg);
     line-height: var(--ct-menu-item-icon-size);
     font-size: calc(var(--ct-menu-item-font-size) * 1.18);
     padding-top: 0.5rem

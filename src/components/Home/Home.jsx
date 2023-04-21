@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { introInfo } from '../../Info'
 import About from '../Aboutus/About'
 import Contactdiv from '../Contact/Contactdiv'
@@ -8,11 +8,16 @@ import Header from './Header'
 import Intro from './Intro'
 import Services from '../Services/Services'
 import Works from './Works'
+import HomeContext from '../../contexts/HomeContext'
 
 function Home() {
+  const {Banners,getBanners} = useContext(HomeContext)
+  useEffect(()=>{
+    getBanners()
+  },[])
   return (
     <>
-      <Header/>
+      <Header Banners={Banners}/>
       {
         introInfo.map((obj, i) =>{
           return (

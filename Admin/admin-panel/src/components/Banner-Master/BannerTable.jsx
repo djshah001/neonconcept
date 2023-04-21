@@ -7,14 +7,17 @@ import UpdateBanner from "./UpdateBanner";
 function BannerTable() {
   const [ShowCreateBanner, setShowCreateBanner] = useState(false);
   const [Banners, setBanners] = useState([]);
-  const [Showmsg, setShowmsg] = useState(false);
+  const [Alert, setAlert] = useState({
+    show: false,
+    msg: "",
+  });
   const [render, forceUpdate] = useReducer((x) => x + 1, 0);
   const [updateBanner, setupdateBanner] = useState({
     id: "",
     show: false,
   });
 
-  const { getBanners,deleteBanner } = useContext(BannerContext);
+  const { getBanners, deleteBanner } = useContext(BannerContext);
 
   const handleClick = (id) => {
     setupdateBanner({
@@ -24,11 +27,11 @@ function BannerTable() {
     });
   };
 
-  const handleDelete = async(id) => {
-    const res = await deleteBanner(id)
-    if(res){
-      setShowmsg(!Showmsg);
-      forceUpdate()
+  const handleDelete = async (id) => {
+    const res = await deleteBanner(id);
+    if (res) {
+      setAlert({ ...Alert, show: true, msg: res });
+      forceUpdate();
     }
   };
 
@@ -40,11 +43,11 @@ function BannerTable() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowmsg(false);
+      setAlert({ ...Alert, show: false });
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [Showmsg]);
+  }, [Alert.show]);
 
   return (
     <>
@@ -59,12 +62,12 @@ function BannerTable() {
       </div>
 
       <AnimatePresence>
-        {Showmsg && (
+        {Alert.show && (
           <motion.div
-            initial={{ opacity: 0 ,x:300}}
-            animate={{ opacity: 1,x:0 }}
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0 }}
-            transition={{ type: "spring",duration: 0.5}}
+            transition={{ type: "spring", duration: 0.5 }}
             className="alert alert-danger alert-dismissible bg-success text-white border-0 fade show"
             role="alert"
           >
@@ -74,104 +77,123 @@ function BannerTable() {
               data-bs-dismiss="alert"
               aria-label="Close"
               onClick={() => {
-                setShowmsg(false);
+                setAlert({ ...Alert, show: false });
               }}
             ></button>
-            <strong>Success - </strong> Banner Deleted
+            <strong>Success - {Alert.msg.msg}</strong>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <table
-        id="fixed-header-datatable"
-        className="table dt-responsive nowrap table-striped w-100"
+      <div
+        className="dataTables_scroll"
+        style={{
+          position: "relative",
+          overflow: "auto",
+          maxHeight: "450px",
+          width: "100%",
+        }}
       >
-        <thead>
-          <tr>
-            <th>Sr No.</th>
-            <th>Top Title</th>
-            <th>Title</th>
-            <th>Sub Title</th>
-            <th>Status</th>
-            <th>Action</th>
-            {/* <th>Salary</th> */}
-          </tr>
-        </thead>
+        <table
+          id="scroll-vertical-datatable"
+          className="table table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline collapsed"
+        >
+          <thead>
+            <tr>
+              <th>Sr No.</th>
+              <th>Top Title</th>
+              <th>Title</th>
+              <th>Sub Title</th>
+              <th>Status</th>
+              <th>Action</th>
+              {/* <th>Salary</th> */}
+            </tr>
+          </thead>
 
-        <tbody>
-          {Banners.map((banner, index) => {
-            return (
-              <tr key={banner._id}>
-                <th>{index + 1}</th>
-                {banner.topTitle !== undefined ? (
-                  <th>{banner.topTitle}</th>
-                ) : (
-                  <th>Not Given</th>
-                )}
-                {banner.title !== undefined ? (
-                  <th>{banner.title}</th>
-                ) : (
-                  <th>Not Given</th>
-                )}
-                {banner.subTitle !== undefined ? (
-                  <th>{banner.subTitle}</th>
-                ) : (
-                  <th>Not Given</th>
-                )}
-                {/* <th>{banner.subTitle}</th> */}
-                <th>
-                  <img
-                    src={
-                      banner.bannerImg !== ""
-                        ? `${process.env.REACT_APP_HOST}images/banners/${banner.bannerImg}`
-                        : `${process.env.REACT_APP_HOST}images/profilePic/OIP.jpeg`
-                    }
-                    className="rounded"
-                    alt=""
-                    width="100%"
-                    height="100%"
-                  />
-                </th>
-                <th>
-                  <motion.button
-                    whileHover={{ scale: 1.2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    whileTap={{ scale: 0.9 }}
-                    type="button"
-                    value={banner._id}
-                    className="btn btn-success rounded-pill"
-                    onClick={() => {
-                      handleClick(banner._id);
-                    }}
-                  >
-                    <i className="fa-solid fa-pen-to-square"></i>
-                    Edit
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    whileTap={{ scale: 0.9 }}
-                    type="button"
-                    className="btn btn-danger rounded-pill"
-                    onClick={() => {
-                      handleDelete(banner._id);
-                    }}
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                    Delete
-                  </motion.button>
-                </th>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+          <tbody>
+            {Banners.map((banner, index) => {
+              return (
+                <tr key={banner._id}>
+                  <td>{index + 1}</td>
+                  {banner.topTitle !== undefined ? (
+                    <td>{banner.topTitle}</td>
+                  ) : (
+                    <td>Not Given</td>
+                  )}
+                  {banner.title !== undefined ? (
+                    <td className="col-1">{banner.title}</td>
+                  ) : (
+                    <td>Not Given</td>
+                  )}
+                  {banner.subTitle !== undefined ? (
+                    <td className="col-1">{banner.subTitle}</td>
+                  ) : (
+                    <td>Not Given</td>
+                  )}
+                  {/* <th>{banner.subTitle}</th> */}
+                  <td className="col-1">
+                    <img
+                      src={
+                        banner.bannerImg !== ""
+                          ? `${process.env.REACT_APP_HOST}images/banners/${banner.bannerImg}`
+                          : `${process.env.REACT_APP_HOST}images/profilePic/OIP.jpeg`
+                      }
+                      className="rounded"
+                      alt=""
+                      width="100%"
+                      height="100%"
+                    />
+                  </td>
+                  <td>
+                    <motion.button
+                      whileHover={{ scale: 1.2 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
+                      whileTap={{ scale: 0.9 }}
+                      type="button"
+                      value={banner._id}
+                      className="btn btn-success rounded-pill"
+                      onClick={() => {
+                        handleClick(banner._id);
+                      }}
+                    >
+                      <i className="fa-solid fa-pen-to-square"></i>
+                      Edit
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
+                      whileTap={{ scale: 0.9 }}
+                      type="button"
+                      className="btn btn-danger rounded-pill"
+                      onClick={() => {
+                        handleDelete(banner._id);
+                      }}
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                      Delete
+                    </motion.button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
       <AnimatePresence>
         {updateBanner.show && (
           <UpdateBanner
             setupdateBanner={setupdateBanner}
             forceUpdate={forceUpdate}
+            setAlert={setAlert}
             id={updateBanner.id}
           />
         )}
@@ -183,7 +205,7 @@ function BannerTable() {
             whileHover={{ scale: 1.1 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
             whileTap={{ scale: 0.9 }}
-            className="btn btn-primary rounded-pill"
+            className="btn btn-primary rounded-pill my-4"
             onClick={() => {
               setShowCreateBanner(!ShowCreateBanner);
             }}
@@ -199,6 +221,7 @@ function BannerTable() {
           <CreateBanner
             setShowCreateBanner={setShowCreateBanner}
             forceUpdate={forceUpdate}
+            setAlert={setAlert}
           />
         )}
       </AnimatePresence>

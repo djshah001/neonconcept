@@ -9,10 +9,10 @@ async (req,res) => {
         const BannerId = req.body.id
         const user = await Banner.deleteOne({_id:BannerId})
         if(user) {
-            res.send('Banner Deleted')
+            res.json({msg:`Banner Deleted`})
         }
         else{
-            res.send('error')
+            res.send({errors : [{msg:`error occured`}]})
         }
     } catch (error) {
         res.send('error: ' + error)

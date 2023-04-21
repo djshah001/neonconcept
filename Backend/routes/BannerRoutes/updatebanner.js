@@ -24,7 +24,6 @@ const upload = multer({ storage: storage })
 router.post('/updatebanner',
     upload.single('image'),
     async (req, res) => {
-        console.log(req.body)
         try {
             const info = await Banner.findOne({ _id: req.body.id }).exec()
             const id = req.body.id
@@ -38,7 +37,7 @@ router.post('/updatebanner',
                 bannerImg: bannerImg,
             })
 
-            res.json(`Banner updated`)
+            res.json({msg:`Banner Updated`})
 
         } catch (error) {
             console.error(error.massage)

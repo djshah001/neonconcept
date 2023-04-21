@@ -49,8 +49,7 @@ router.post('/createbanner',
                 subTitle: req.body.subTitle,
                 bannerImg: bannerImg,
             })
-            res.json(banner)
-            console.log('Banner added to db')
+            res.json({msg:`New Banner Created`})
         }
         catch (error) {
             console.error(error.massage)

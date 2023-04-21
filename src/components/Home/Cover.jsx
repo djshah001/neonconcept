@@ -9,7 +9,7 @@ function Cover(props) {
 
       <div
         className="d-block w-100 banner-bg-image"
-        style={{ backgroundImage: `url(${props.imgurl})` }}
+        style={{ backgroundImage: `url(${process.env.REACT_APP_HOST}images/banners/${props.imgurl})` }}
       >
         <div className="carousel-caption d-md-block">
           <div className="row cvr_row">

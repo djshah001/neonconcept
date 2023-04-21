@@ -18,9 +18,11 @@ function UpdateBanner(props) {
   const handleSubmit = async(e)=>{
     e.preventDefault();
     const result = await updateBanner(BannerInfo)
-    console.log(result);
-    props.forceUpdate()
-    props.setupdateBanner({show:false});
+    if(result){
+      props.setAlert((prev) => ({ ...prev, show: true, msg: result }));
+      props.forceUpdate()
+      props.setupdateBanner({show:false});
+    }
   }
 
   const handleChange = (e) => {

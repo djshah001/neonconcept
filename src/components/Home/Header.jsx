@@ -3,40 +3,38 @@ import { motion, AnimatePresence } from "framer-motion";
 import Cover from "./Cover";
 import headerContent from "../../Info";
 
-function Header() {
+function Header({Banners}) {
   const variants = {
     right: {
       x: "110vw",
-      opacity: "1",
       transition: { duration: 0.5 },
     },
     shown: {
       x: "0",
-      opacity: "1",
       transition: { duration: 0.5 },
     },
     left: {
       x: "-110vw",
-      opacity: "1",
       transition: { duration: 0.5 },
     },
   };
 
   const [slideNo, setSlideNo] = useState(0);
   const [clickedBtn, setclickedBtn] = useState("");
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setSlideNo(slideNo === 2 ? 0 : slideNo + 1);
+      setSlideNo(slideNo === Banners.length - 1 ? 0 : slideNo + 1);
     }, 10000);
     return () => clearInterval(interval);
   }, [slideNo]);
 
   const increaseSlide = () => {
-    setSlideNo(slideNo === 2 ? 0 : slideNo + 1);
+    setSlideNo(slideNo === Banners.length - 1 ? 0 : slideNo + 1);
     setclickedBtn("right");
   };
   const decreaseSlide = () => {
-    setSlideNo(slideNo === 0 ? 2 : slideNo - 1);
+    setSlideNo(slideNo === 0 ? Banners.length - 1 : slideNo - 1);
     setclickedBtn("left");
   };
 
@@ -53,7 +51,7 @@ function Header() {
             data-ride="carousel"
           >
             <ol className="carousel-indicators">
-              {headerContent.map((obj, i) => {
+              {Banners.map((obj, i) => {
                 return (
                   <li
                     key={"" + i}
@@ -65,7 +63,7 @@ function Header() {
             </ol>
 
             <div className="carousel-inner">
-              {headerContent.map((obj, i) => {
+              {Banners.map((obj, i) => {
                 return (
                   <React.Fragment key={i}>
                     <AnimatePresence mode="sync">
@@ -79,10 +77,10 @@ function Header() {
                           <Cover
                             i={i}
                             active="active"
-                            uptitle={obj.up_title}
+                            uptitle={obj.topTitle}
                             title={obj.title}
-                            subtitle={obj.subtitle}
-                            imgurl={obj.imgurl}
+                            subtitle={obj.subTitle}
+                            imgurl={obj.bannerImg}
                           />
                         </motion.div>
                       )}

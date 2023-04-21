@@ -18,6 +18,7 @@ function CreateBanner(props) {
     e.preventDefault();
     const res = await createBanner(BannerInfo);
     if (!res.errors) {
+      props.setAlert((prev) => ({ ...prev, show: true, msg: res }));
       props.setShowCreateBanner(false);
       props.forceUpdate();
     } else {
@@ -39,10 +40,6 @@ function CreateBanner(props) {
       setBannerInfo({ ...BannerInfo, [e.target.name]: e.target.value });
     }
   };
-
-  //   useEffect(() => {
-  //     console.log(BannerInfo);
-  //   }, [BannerInfo]);
 
   return (
     <>
@@ -79,21 +76,8 @@ function CreateBanner(props) {
                     </div>
                   );
                 })}
-                <div
-                  className="alert alert-success alert-dismissible bg-success text-white border-0 fade show"
-                  role="alert"
-                >
-                  <button
-                    type="button"
-                    className="btn-close btn-close-white"
-                    data-bs-dismiss="alert"
-                    aria-label="Close"
-                  ></button>
-                  <strong>Success - </strong> A simple success alert—check it
-                  out!
-                </div>
-                <form onSubmit={handleSubmit} autoComplete="off">
 
+                <form onSubmit={handleSubmit} autoComplete="off">
                   <div className="form-group">
                     <label htmlFor="topTitle" className="col-form-label">
                       Top Title:
