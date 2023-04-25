@@ -2,7 +2,6 @@ const neonDropDown = require('../models/NeonDropdown')
 const express = require('express');
 const router = express.Router()
 const { body, validationResult } = require('express-validator');
-const { default: mongoose } = require("mongoose");
 
 
 

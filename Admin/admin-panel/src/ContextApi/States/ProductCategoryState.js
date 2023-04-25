@@ -34,7 +34,7 @@ function ProductCategoryState(props) {
   const GetSpecificProductcategory = async (id,ProductCategoryInfo) => {
     console.log(id)
     const url = `${process.env.REACT_APP_HOST}getproductcategorybyid`
-    const response = await axios.post(url, {id:id,title:ProductCategoryInfo.title,})
+    const response = await axios.post(url, {id:id,title:ProductCategoryInfo.title,active:ProductCategoryInfo.active})
     return response.data
   }
 

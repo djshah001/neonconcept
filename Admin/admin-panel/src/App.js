@@ -18,6 +18,8 @@ import GetLoggedInUser from './ContextApi/States/GetLoggedInUser';
 import SideBarState from './ContextApi/States/SideBarState';
 import BannerTable from './components/Banner-Master/BannerTable';
 import BannerState from './ContextApi/States/BannerState';
+import ProductCategory from './components/Product-Category-Master/ProductCategory';
+import ProductCategoryState from './ContextApi/States/ProductCategoryState';
 
 
 function App() {
@@ -26,20 +28,19 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<Rootlayout />}>
-        <Route path="/login" element={
-          <GetLoggedInUser>
-            <Login />
-          </GetLoggedInUser>
 
+        <Route path="/login" element={
+          <Login />
         } />
+
         <Route exact path='/' element={<PrivateRoute />}>
-            <Route element={
-              <GetLoggedInUser>
-                <SideBarState>
-                  <DashBoardLayout />
-                </SideBarState>
-              </GetLoggedInUser>
-            }>
+          <Route element={
+            <GetLoggedInUser>
+              <SideBarState>
+                <DashBoardLayout />
+              </SideBarState>
+            </GetLoggedInUser>
+          }>
 
             <Route exact path='/' element={<Home />} />
 
@@ -48,11 +49,17 @@ function App() {
                 <User />
               </GetUsers>
             } />
-            
+
             <Route exact path='/banner' element={
               <BannerState>
                 <BannerTable />
               </BannerState>
+            } />
+
+            <Route exact path='/productcategory' element={
+              <ProductCategoryState>
+                <ProductCategory />
+              </ProductCategoryState>
             } />
 
             <Route exact path='/hi' element={<div>hi</div>} />

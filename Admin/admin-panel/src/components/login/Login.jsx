@@ -1,13 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import LoginContext from "../../ContextApi/contexts/LoginContext";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../../ContextApi/contexts/UserContext";
 import { motion } from "framer-motion";
 
 function Login() {
   const context = useContext(LoginContext);
-  // const userContext = useContext(UserContext);
-  // console.log(userContext)
   const navigate = useNavigate();
   const loginFunc = context.login;
 

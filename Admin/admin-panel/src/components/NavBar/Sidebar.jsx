@@ -181,7 +181,7 @@ function Sidebar() {
                         <NavLink to="">Social Icon Master</NavLink>
                       </li>
                       <li>
-                        <NavLink to="">Product Category Master</NavLink>
+                        <NavLink to="/productcategory">Product Category Master</NavLink>
                       </li>
                       <li>
                         <NavLink to="">Product Master</NavLink>

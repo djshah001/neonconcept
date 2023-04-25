@@ -3,8 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import BannerContext from "../../ContextApi/contexts/BannerContext";
 
 function UpdateBanner(props) {
-
-  const { getBannerById,updateBanner } = useContext(BannerContext);
+  const { getBannerById, updateBanner } = useContext(BannerContext);
 
   const [Errors, setErrors] = useState([]);
   const [BannerInfo, setBannerInfo] = useState({
@@ -15,15 +14,15 @@ function UpdateBanner(props) {
     imgUrl: null,
   });
 
-  const handleSubmit = async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await updateBanner(BannerInfo)
-    if(result){
+    const result = await updateBanner(BannerInfo);
+    if (result) {
       props.setAlert((prev) => ({ ...prev, show: true, msg: result }));
-      props.forceUpdate()
-      props.setupdateBanner({show:false});
+      props.forceUpdate();
+      props.setupdateBanner({ show: false });
     }
-  }
+  };
 
   const handleChange = (e) => {
     if (e.target.name === "image") {
@@ -39,12 +38,12 @@ function UpdateBanner(props) {
     }
   };
 
-  useEffect(()=>{
-    getBannerById(props.id).then((banner)=>{
-      setBannerInfo(banner)
-    })
-},[])
-// console.log(BannerInfo)
+  useEffect(() => {
+    getBannerById(props.id).then((banner) => {
+      setBannerInfo(banner);
+    });
+  }, []);
+  // console.log(BannerInfo)
 
   return (
     <>
@@ -69,7 +68,7 @@ function UpdateBanner(props) {
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   className="fa-solid fa-xmark fa-xl"
                   onClick={() => {
-                    props.setupdateBanner({show:false});
+                    props.setupdateBanner({ show: false });
                   }}
                 />
               </div>
@@ -95,9 +94,8 @@ function UpdateBanner(props) {
                   <strong>Success - </strong> A simple success alert—check it
                   out!
                 </div> */}
-                
-                <form onSubmit={handleSubmit} autoComplete="off">
 
+                <form onSubmit={handleSubmit} autoComplete="off">
                   <div className="form-group">
                     <label htmlFor="topTitle" className="col-form-label">
                       Top Title:
@@ -214,7 +212,7 @@ function UpdateBanner(props) {
                       className="btn btn-danger"
                       data-dismiss="modal"
                       onClick={() => {
-                        props.setupdateBanner({show:false});
+                        props.setupdateBanner({ show: false });
                       }}
                     >
                       Close
