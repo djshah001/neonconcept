@@ -14,9 +14,9 @@ function UpdateBanner(props) {
     imgUrl: null,
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e,id) => {
     e.preventDefault();
-    const result = await updateBanner(BannerInfo);
+    const result = await updateBanner(id,BannerInfo);
     if (result) {
       props.setAlert((prev) => ({ ...prev, show: true, msg: result }));
       props.forceUpdate();
@@ -81,21 +81,7 @@ function UpdateBanner(props) {
                   );
                 })}
 
-                {/* <div
-                  className="alert alert-success alert-dismissible bg-success text-white border-0 fade show"
-                  role="alert"
-                >
-                  <button
-                    type="button"
-                    className="btn-close btn-close-white"
-                    data-bs-dismiss="alert"
-                    aria-label="Close"
-                  ></button>
-                  <strong>Success - </strong> A simple success alert—check it
-                  out!
-                </div> */}
-
-                <form onSubmit={handleSubmit} autoComplete="off">
+                <form onSubmit={(e)=>handleSubmit(e,props.id)} autoComplete="off">
                   <div className="form-group">
                     <label htmlFor="topTitle" className="col-form-label">
                       Top Title:

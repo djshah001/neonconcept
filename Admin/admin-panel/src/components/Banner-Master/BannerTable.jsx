@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import CreateBanner from "./CreateBanner";
 import BannerContext from "../../ContextApi/contexts/BannerContext";
 import UpdateBanner from "./UpdateBanner";
+import DataTable from "react-data-table-component";
 
 function BannerTable() {
   const [ShowCreateBanner, setShowCreateBanner] = useState(false);
@@ -34,6 +35,166 @@ function BannerTable() {
       forceUpdate();
     }
   };
+
+  const columns = [
+    {
+      name: "id",
+      selector: (row, index) => index + 1,
+      width: "100px",
+    },
+    {
+      name: "Top Title",
+      selector: (row) => <div>{row.topTitle}</div>,
+      // width: "300px",
+    },
+    {
+      name: "title",
+      selector: (row) => <div>{row.title}</div>,
+      width: "300px",
+    },
+    {
+      name: "Sub Title",
+      selector: (row) => <div>{row.subTitle}</div>,
+      // width: "300px",
+    },
+    {
+      name: "Image",
+      selector: (row) => (
+        <img
+          src={
+            row.bannerImg !== ""
+              ? `${process.env.REACT_APP_HOST}images/banners/${row.bannerImg}`
+              : `${process.env.REACT_APP_HOST}images/profilePic/OIP.jpeg`
+          }
+          className="rounded"
+          alt=""
+          width="100%"
+          height="100%"
+        />
+      ),
+    },
+    // {
+    //   name: "status",
+    //   selector: (row) => (row.active ? "Active" : "not Active"),
+    // },
+    {
+      name: "Edit",
+      selector: (row) => (
+        <motion.button
+          whileHover={{ scale: 1.2 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 10,
+          }}
+          whileTap={{ scale: 0.9 }}
+          type="button"
+          value={row._id}
+          className="btn btn-success rounded-pill"
+          onClick={() => {
+            handleClick(row._id);
+          }}
+        >
+          <i className="fa-solid fa-pen-to-square"></i>
+          Edit
+        </motion.button>
+      ),
+      width: "100px",
+    },
+    {
+      name: "delete",
+      selector: (row) => (
+        <>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 10,
+            }}
+            whileTap={{ scale: 0.9 }}
+            type="button"
+            className="btn btn-danger rounded-pill"
+            onClick={() => {
+              handleDelete(row._id);
+            }}
+          >
+            <i className="fa-solid fa-trash"></i>
+            Delete
+          </motion.button>
+        </>
+      ),
+    },
+  ];
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: "#252020",
+        borderBottom: "1px solid #fff",
+        color: "#fff",
+        fontSize: "20px",
+        padding: "20px 10px",
+        fontWeight: "700",
+      },
+    },
+    // cells: {
+    //   style: {
+    //     backgroundColor: "#121212",
+    //     color: "#fff",
+    //     fontSize: "14px",
+    //     fontWeight: "400",
+    //   },
+    // },
+    rows: {
+      style: {
+        backgroundColor: "#121212",
+        color: "#fff",
+        fontSize: "16px",
+        fontWeight: "500",
+        padding: "20px 0",
+        transition: "all 0.3s ease-in-out",
+      },
+      // highlightOnHoverStyle: {
+      //   backgroundColor: "#d9edf7",
+      //   color: "#121212",
+      //   transition: "all 0.3s ease-in-out",
+      // },
+    },
+    pagination: {
+      style: {
+        backgroundColor: "#0b0b0b",
+        color: "#aaa",
+        fontSize: "12px",
+      },
+    },
+  };
+
+  const ExpandedComponent = ({ data }) => (
+    <div
+      className="bg-dark"
+      style={{
+        padding: "20px",
+      }}
+    >
+      <table className="table dt-responsive nowrap table-striped w-100">
+        <thead>
+          <tr>
+            <th>Top Title</th>
+            <th> Title </th>
+            <th>Sub Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{data.topTitle}</td>
+            <td>{data.title}</td>
+            <td>{data.subTitle}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
 
   useEffect(() => {
     getBanners().then((res) => {
@@ -85,108 +246,20 @@ function BannerTable() {
         )}
       </AnimatePresence>
 
-      <div
-        className="dataTables_scroll"
-        style={{
-          position: "relative",
-          overflow: "auto",
-          maxHeight: "450px",
-          width: "100%",
-        }}
-      >
-        <table
-          id="scroll-vertical-datatable"
-          className="table table-striped dt-responsive nowrap w-100 dataTable no-footer dtr-inline collapsed"
-        >
-          <thead>
-            <tr>
-              <th>Sr No.</th>
-              <th>Top Title</th>
-              <th>Title</th>
-              <th>Sub Title</th>
-              <th>Status</th>
-              <th>Action</th>
-              {/* <th>Salary</th> */}
-            </tr>
-          </thead>
-
-          <tbody>
-            {Banners.map((banner, index) => {
-              return (
-                <tr key={banner._id}>
-                  <td>{index + 1}</td>
-                  {banner.topTitle !== undefined ? (
-                    <td>{banner.topTitle}</td>
-                  ) : (
-                    <td>Not Given</td>
-                  )}
-                  {banner.title !== undefined ? (
-                    <td className="col-1">{banner.title}</td>
-                  ) : (
-                    <td>Not Given</td>
-                  )}
-                  {banner.subTitle !== undefined ? (
-                    <td className="col-1">{banner.subTitle}</td>
-                  ) : (
-                    <td>Not Given</td>
-                  )}
-                  {/* <th>{banner.subTitle}</th> */}
-                  <td className="col-1">
-                    <img
-                      src={
-                        banner.bannerImg !== ""
-                          ? `${process.env.REACT_APP_HOST}images/banners/${banner.bannerImg}`
-                          : `${process.env.REACT_APP_HOST}images/profilePic/OIP.jpeg`
-                      }
-                      className="rounded"
-                      alt=""
-                      width="100%"
-                      height="100%"
-                    />
-                  </td>
-                  <td>
-                    <motion.button
-                      whileHover={{ scale: 1.2 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 10,
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                      type="button"
-                      value={banner._id}
-                      className="btn btn-success rounded-pill"
-                      onClick={() => {
-                        handleClick(banner._id);
-                      }}
-                    >
-                      <i className="fa-solid fa-pen-to-square"></i>
-                      Edit
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 10,
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                      type="button"
-                      className="btn btn-danger rounded-pill"
-                      onClick={() => {
-                        handleDelete(banner._id);
-                      }}
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                      Delete
-                    </motion.button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      <DataTable
+        // title="Product Categories"
+        columns={columns}
+        data={Banners}
+        customStyles={customStyles}
+        dense
+        pagination
+        responsive
+        fixedHeader
+        expandableRows
+        highlightOnHover
+        expandableRowsComponent={ExpandedComponent}
+        fixedHeaderScrollHeight="400px"
+      />
 
       <AnimatePresence>
         {updateBanner.show && (

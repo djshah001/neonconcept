@@ -10,7 +10,6 @@ router.post('/updateproductcategory',[
     .withMessage('Title cannot be empty')
 ],
 async (req,res) => {
-    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.json({ errors: errors.array() });
@@ -19,7 +18,7 @@ async (req,res) => {
     const id = req.body.id
 
     try {
-        await productsCategory.findByIdAndUpdate(id,{
+        const p = await productsCategory.findByIdAndUpdate(id,{
             title: req.body.title,
             active:req.body.active
           })

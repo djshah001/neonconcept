@@ -10,51 +10,47 @@ function UpdateProductCategory(props) {
 
   const [ProductCategoryInfo, setProductCategoryInfo] = useState({
     title: "",
-    active: true,
+    active: null,
   });
 
-  const checkboxRef = useRef(null);
 
   const handleSubmit = async (e,id) => {
     e.preventDefault();
     const res = await UpdateProductcategory(id,ProductCategoryInfo);
-    console.log(res);
     if (!res.errors) {
       props.setAlert((prev) => ({ ...prev, show: true, msg: res }));
       props.setUpdateProductCategory(false);
       props.forceUpdate();
-    } else {
+    } 
+    else {
       setErrors(res.errors);
     }
   };
 
-  useEffect(() => {
-    GetSpecificProductcategory(props.id).then((productCategory) => {
-      setProductCategoryInfo(productCategory);
-      console.log(productCategory);
-    });
-  }, []);
-
   const handleChange = (e) => {
     if (e.target.name === "active") {
-      if (checkboxRef.current.checked) {
-        setProductCategoryInfo({
-          ...ProductCategoryInfo,
-          [e.target.name]: true,
-        });
-      } else {
-        setProductCategoryInfo({
-          ...ProductCategoryInfo,
-          [e.target.name]: false,
-        });
-      }
-    } else {
+      setProductCategoryInfo({
+        ...ProductCategoryInfo,
+        active: e.target.checked,
+      });  
+    } 
+    else {
       setProductCategoryInfo({
         ...ProductCategoryInfo,
         [e.target.name]: e.target.value,
       });
     }
   };
+
+  const getProductCategory = async (id) => {
+    const res = await GetSpecificProductcategory(id)
+    setProductCategoryInfo(res);
+  }
+
+  useEffect(() => {
+    getProductCategory(props.id)
+  }, []);
+
 
   return (
     <motion.div
@@ -92,7 +88,7 @@ function UpdateProductCategory(props) {
                 );
               })}
 
-              <form onSubmit={handleSubmit} autoComplete="off">
+              <form onSubmit={(e)=>handleSubmit(e,props.id)} autoComplete="off">
                 <div className="form-group">
                   <label htmlFor="title" className="col-form-label">
                     Title:
@@ -118,7 +114,7 @@ function UpdateProductCategory(props) {
                     className="form-check-input"
                     id="customSwitch1"
                     name="active"
-                    ref={checkboxRef}
+                    checked={ProductCategoryInfo.active}
                     onChange={handleChange}
                   />
                 </div>

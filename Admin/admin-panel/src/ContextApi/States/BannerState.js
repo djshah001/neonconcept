@@ -22,7 +22,7 @@ function BannerState(props) {
         }
     }
 
-    const updateBanner = async (banner) => {
+    const updateBanner = async (id,banner) => {
         try {
             const url = `${process.env.REACT_APP_HOST}updatebanner`
 
@@ -31,7 +31,7 @@ function BannerState(props) {
             formdata.append('title', banner.title)
             formdata.append('subTitle', banner.subTitle)
             formdata.append('image', banner.image)
-            formdata.append('id', banner._id)
+            formdata.append('id', id)
             const result = await axios.post(url,formdata)
             return result.data
         }

@@ -42,7 +42,7 @@ function App() {
             </GetLoggedInUser>
           }>
 
-            <Route exact path='/' element={<Home />} />
+            <Route exact path='/' element={<Home title='Home' />} />
 
             <Route exact path='/user' element={
               <GetUsers>

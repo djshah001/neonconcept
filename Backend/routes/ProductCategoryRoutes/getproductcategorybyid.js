@@ -6,7 +6,6 @@ const router = express.Router()
 router.post('/getproductcategorybyid',
 async (req,res) => {
     const Id = req.body.id
-    console.log(Id)
     if (Id) {
         const productscategory = await productsCategory.findById(Id)
         res.send(productscategory)
