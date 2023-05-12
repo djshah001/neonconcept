@@ -41,7 +41,7 @@ function Sidebar() {
     userContext.getloggedinuser().then((r) => {
       setUserInfo(r);
     });
-  }, [userContext, userContext.isChanged]);
+  }, []);
 
   return (
     <>
@@ -184,7 +184,7 @@ function Sidebar() {
                         <NavLink to="/productcategory">Product Category Master</NavLink>
                       </li>
                       <li>
-                        <NavLink to="">Product Master</NavLink>
+                        <NavLink to="/products/productmaster">Product Master</NavLink>
                       </li>
                       <li>
                         <NavLink to=""> Product Image Master</NavLink>

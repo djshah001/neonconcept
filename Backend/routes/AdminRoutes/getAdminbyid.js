@@ -1,10 +1,10 @@
 const express = require('express');
-const User = require('../models/User')
+const User = require('../../models/User')
 const router = express.Router()
 var bcrypt = require('bcryptjs');
 
 
-router.post('/getuserbyid',
+router.post('/getadminbyid',
 async (req,res) => {
     const userId = req.body.id
     if(!userId){

@@ -15,7 +15,7 @@ function Login() {
 
   useEffect(() => {
     if (context.res.success) {
-      navigate("/");
+      navigate("/", { replace: true });
       context.setRes({ success: "" });
     }
   }, [context, context.res.success, navigate]);

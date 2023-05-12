@@ -1,6 +1,11 @@
 const { default: mongoose } = require("mongoose");
 
 const productSchema = new mongoose.Schema({
+    ProductCategoryId: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"productscategory",
+        required: true 
+    },
     title: {
         type: "string",
         required: true
@@ -8,22 +13,28 @@ const productSchema = new mongoose.Schema({
     description: {
         type: "string",
         required: true,
-        // unique:true
     },
-    imgurl: {
+    productImgUrl: {
         type: "string",
         required: true,
-        // unique:true
+    },
+    active: {
+        type: Boolean, 
+        required: true 
+    },
+    readyToBuy: {
+        type: Boolean, 
+        required: true 
     },
     offerPrice: {
-        type: "number",
-        required: true
+        type: "string",
+      //  required: true 
     },
     originalPrice: {
-        type: "number",
-        required: true
+        type: "string",
+      //  required: true 
     }
 })
 
-const Product = mongoose.model('product',productSchema)
+const Product = mongoose.model('product', productSchema)
 module.exports = Product

@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const User = require('../../models/User')
 const express = require('express');
 const router = express.Router()
 const { check, validationResult } = require('express-validator');
@@ -9,7 +9,7 @@ const multer = require('multer')
 const jwt_secret = 'darshanShah'
 const currentDate = new Date()
 let date = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`
-let time =`${currentDate.getHours()}-${currentDate.getMinutes()}-${currentDate.getSeconds()}`;
+let time = `${currentDate.getHours()}-${currentDate.getMinutes()}-${currentDate.getSeconds()}`;
 
 
 const storage = multer.diskStorage({
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post('/updateuser',
+router.post('/createadmin',
     upload.single('image'),
     [
         check('name')
@@ -33,7 +33,7 @@ router.post('/updateuser',
             .withMessage('Name can only contain alphabets and spaces')
             .isLength({ min: 2 })
             .withMessage('Name must be at least 2 characters long'),
-            
+
         check('email', 'Enter a valid email').isEmail(),
 
         check('password', 'Length of password must be at least 8')
@@ -46,22 +46,23 @@ router.post('/updateuser',
             return res.send({ errors: errors.array() });
         }
 
-        // const emailexist = await User.findOne({ email: req.body.email }).exec()
+        const emailexist = await User.findOne({ email: req.body.email }).exec()
+        const profilePic = req.file ? `${req.file.originalname}-${time}-${date}.${req.file.mimetype.split("/")[1]}` : `OIP.jpeg`;
+
 
         try {
-                const info = await User.findOne({ _id: req.body.id }).exec()
-                const id = req.body.id
-                const samePassword = req.body.password === info.password
+            if (emailexist) {
+                res.send({ errors: [{ msg: 'email already exist' }] })
+            }
+            else {
+
                 var salt = bcrypt.genSaltSync(10);
-                var hash = bcrypt.hashSync(req.body.password, salt); 
-                const newPassword = samePassword ? info.password : hash
+                var hash = bcrypt.hashSync(req.body.password, salt);
 
-                const profilePic = req.file ? `${req.file.originalname}-${time}-${date}.${req.file.mimetype.split("/")[1]}` : info.profilePic;
-
-                const user = await User.findByIdAndUpdate(id,{
+                const user = await User.create({
                     name: req.body.name,
                     email: req.body.email,
-                    password: newPassword,
+                    password: req.body.password,
                     profilePic: profilePic,
                 })
 
@@ -71,11 +72,11 @@ router.post('/updateuser',
                     }
                 }
 
-                // const authToken = jwt.sign(data, jwt_secret);
+                const authToken = jwt.sign(data, jwt_secret);
 
-                res.json(`user updated`)
-                console.log('user updated')
-            // }
+                res.json({ authToken: authToken , msg:`Admin Created` })
+                console.log('user added to db')
+            }
 
         } catch (error) {
             console.error(errors.massage)

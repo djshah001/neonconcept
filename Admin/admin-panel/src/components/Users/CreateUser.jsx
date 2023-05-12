@@ -30,17 +30,17 @@ function CreateUser(props) {
     }
   };
 
-  const createfun = userContext.createUser;
+  const createfun = userContext.createAdmin;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await createfun(userInfo);
-    props.forceUpdate();
     setCounter(Counter + 1);
     if (!res.errors) {
+      props.setAlert((prev) => ({ ...prev, show: true, msg: res.msg }));
+      props.forceUpdate();
       props.setShowAddUser(false);
     } else {
       setErrors(res.errors);
-      console.log(Errors);
     }
   };
 

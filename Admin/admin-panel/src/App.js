@@ -20,6 +20,7 @@ import BannerTable from './components/Banner-Master/BannerTable';
 import BannerState from './ContextApi/States/BannerState';
 import ProductCategory from './components/Product-Category-Master/ProductCategory';
 import ProductCategoryState from './ContextApi/States/ProductCategoryState';
+import ProductRoutes from './Routes/ProductRoutes';
 
 
 function App() {
@@ -46,20 +47,23 @@ function App() {
 
             <Route exact path='/user' element={
               <GetUsers>
-                <User />
+                <User title='Admin Table' />
               </GetUsers>
             } />
 
             <Route exact path='/banner' element={
               <BannerState>
-                <BannerTable />
+                <BannerTable title='Banners' />
               </BannerState>
             } />
 
             <Route exact path='/productcategory' element={
               <ProductCategoryState>
-                <ProductCategory />
+                <ProductCategory title='Product Category Table' />
               </ProductCategoryState>
+            } />
+
+            <Route path='/products/productmaster/*' element={<ProductRoutes/>
             } />
 
             <Route exact path='/hi' element={<div>hi</div>} />

@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router()
-const User = require('../models/User')
-const fetchUser = require('../middleware/fetchUser');
+const User = require('../../models/User')
+const fetchUser = require('../../middleware/fetchUser');
 
 
-router.post('/getuser',fetchUser,
+router.post('/getloggedinadmin',fetchUser,
 async (req,res) => {
     const userId = req.userId
     const user = await User.findById(userId)

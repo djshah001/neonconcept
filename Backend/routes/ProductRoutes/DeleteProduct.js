@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router()
-const productsCategory  = require('../../models/Productcategories');
+const Product = require('../../models/Products')
 
-router.post('/deleteproductcategory',
+router.post('/deleteproduct',
 async (req,res) => {
     try {
         const Id = req.body.id
-        const productcategory = await productsCategory.deleteOne({_id:Id})
-        if(productcategory) {
-            res.json({msg:`Product Category Deleted`})
+        const product = await Product.deleteOne({_id:Id})
+        if(product) {
+            res.json({msg:`Product Deleted`})
         }
         else{
             res.send({errors : [{msg:`error occured`}]})

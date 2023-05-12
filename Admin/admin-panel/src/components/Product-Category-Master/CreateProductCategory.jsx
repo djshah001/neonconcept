@@ -12,16 +12,15 @@ function CreateProductCategory(props) {
     active: true,
   });
 
-  const checkboxRef = useRef(null)
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     const res = await productCategory.createProductCategory(ProductCategoryInfo)
     console.log(res);
     if (!res.errors) {
-      props.setAlert((prev) => ({ ...prev, show: true, msg: res }));
+      props.setAlert((prev) => ({ ...prev, show: true, msg: res.msg }));
       props.setShowCreateProductCategory(false);
-      props.forceUpdate();
+      // props.forceUpdate();
     }
     else{
       setErrors(res.errors)
@@ -29,25 +28,17 @@ function CreateProductCategory(props) {
   };
 
   const handleChange = (e) => {
-    if (e.target.name === 'active') {
-        if (checkboxRef.current.checked) {
-            setProductCategoryInfo({
-                ...ProductCategoryInfo,
-                [e.target.name]: true,
-              });
-        } 
-        else {
-            setProductCategoryInfo({
-                ...ProductCategoryInfo,
-                [e.target.name]: false,
-              });
-        }
+    if (e.target.name === "active") {
+      setProductCategoryInfo({
+        ...ProductCategoryInfo,
+        active: e.target.checked,
+      });  
     } 
     else {
-        setProductCategoryInfo({
-          ...ProductCategoryInfo,
-          [e.target.name]: e.target.value,
-        });
+      setProductCategoryInfo({
+        ...ProductCategoryInfo,
+        [e.target.name]: e.target.value,
+      });
     }
   };
 
@@ -104,16 +95,16 @@ function CreateProductCategory(props) {
                   />
                 </div>
 
-                <div className="form-check form-switch my-3">
-                  <label className="form-check-label" htmlFor="customSwitch1">
+                <div className="form-check-reverse form-switch my-3">
+                  <label className="form-check-label " htmlFor="customSwitch1">
                     Active?
                   </label>
                   <input
                     type="checkbox"
-                    className="form-check-input"
+                    className="form-check-input mx-2"
                     id="customSwitch1"
                     name="active"
-                    ref={checkboxRef}
+                    checked={ProductCategoryInfo.active}
                     onChange={handleChange}
                   />
                 </div>

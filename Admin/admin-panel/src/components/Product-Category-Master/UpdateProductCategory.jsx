@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProductCategoryContext from "../../ContextApi/contexts/ProductCategoryContext";
 
 function UpdateProductCategory(props) {
@@ -18,9 +18,9 @@ function UpdateProductCategory(props) {
     e.preventDefault();
     const res = await UpdateProductcategory(id,ProductCategoryInfo);
     if (!res.errors) {
-      props.setAlert((prev) => ({ ...prev, show: true, msg: res }));
+      props.setAlert((prev) => ({ ...prev, show: true, msg: res.msg }));
       props.setUpdateProductCategory(false);
-      props.forceUpdate();
+      // props.forceUpdate();
     } 
     else {
       setErrors(res.errors);
@@ -105,13 +105,13 @@ function UpdateProductCategory(props) {
                   />
                 </div>
 
-                <div className="form-check form-switch my-3">
+                <div className="form-check-reverse form-switch my-3">
                   <label className="form-check-label" htmlFor="customSwitch1">
                     Active?
                   </label>
                   <input
                     type="checkbox"
-                    className="form-check-input"
+                    className="form-check-input mx-2"
                     id="customSwitch1"
                     name="active"
                     checked={ProductCategoryInfo.active}

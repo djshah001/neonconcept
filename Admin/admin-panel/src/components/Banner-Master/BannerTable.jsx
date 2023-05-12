@@ -4,8 +4,11 @@ import CreateBanner from "./CreateBanner";
 import BannerContext from "../../ContextApi/contexts/BannerContext";
 import UpdateBanner from "./UpdateBanner";
 import DataTable from "react-data-table-component";
+import { TableStyle } from "../DataTable/CustomStyles";
+import { useOutletContext } from "react-router-dom";
 
-function BannerTable() {
+function BannerTable(props) {
+  const { setTitle } = useOutletContext();
   const [ShowCreateBanner, setShowCreateBanner] = useState(false);
   const [Banners, setBanners] = useState([]);
   const [Alert, setAlert] = useState({
@@ -45,7 +48,6 @@ function BannerTable() {
     {
       name: "Top Title",
       selector: (row) => <div>{row.topTitle}</div>,
-      // width: "300px",
     },
     {
       name: "title",
@@ -55,7 +57,6 @@ function BannerTable() {
     {
       name: "Sub Title",
       selector: (row) => <div>{row.subTitle}</div>,
-      // width: "300px",
     },
     {
       name: "Image",
@@ -127,48 +128,7 @@ function BannerTable() {
     },
   ];
 
-  const customStyles = {
-    headCells: {
-      style: {
-        backgroundColor: "#252020",
-        borderBottom: "1px solid #fff",
-        color: "#fff",
-        fontSize: "20px",
-        padding: "20px 10px",
-        fontWeight: "700",
-      },
-    },
-    // cells: {
-    //   style: {
-    //     backgroundColor: "#121212",
-    //     color: "#fff",
-    //     fontSize: "14px",
-    //     fontWeight: "400",
-    //   },
-    // },
-    rows: {
-      style: {
-        backgroundColor: "#121212",
-        color: "#fff",
-        fontSize: "16px",
-        fontWeight: "500",
-        padding: "20px 0",
-        transition: "all 0.3s ease-in-out",
-      },
-      // highlightOnHoverStyle: {
-      //   backgroundColor: "#d9edf7",
-      //   color: "#121212",
-      //   transition: "all 0.3s ease-in-out",
-      // },
-    },
-    pagination: {
-      style: {
-        backgroundColor: "#0b0b0b",
-        color: "#aaa",
-        fontSize: "12px",
-      },
-    },
-  };
+
 
   const ExpandedComponent = ({ data }) => (
     <div
@@ -187,9 +147,9 @@ function BannerTable() {
         </thead>
         <tbody>
           <tr>
-            <td>{data.topTitle}</td>
-            <td>{data.title}</td>
-            <td>{data.subTitle}</td>
+            <th>{data.topTitle}</th>
+            <th>{data.title}</th>
+            <th>{data.subTitle}</th>
           </tr>
         </tbody>
       </table>
@@ -197,6 +157,7 @@ function BannerTable() {
   );
 
   useEffect(() => {
+    setTitle(props.title)
     getBanners().then((res) => {
       setBanners(res);
     });
@@ -208,19 +169,10 @@ function BannerTable() {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [Alert.show]);
+  }, [Alert]);
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12">
-            <div className="page-title-box">
-              <h4 className="page-title text-white">Banner Master</h4>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <AnimatePresence>
         {Alert.show && (
@@ -247,15 +199,16 @@ function BannerTable() {
       </AnimatePresence>
 
       <DataTable
-        // title="Product Categories"
         columns={columns}
         data={Banners}
-        customStyles={customStyles}
+        customStyles={TableStyle}
         dense
         pagination
         responsive
         fixedHeader
         expandableRows
+        expandOnRowClicked
+        expandableRowsHideExpander
         highlightOnHover
         expandableRowsComponent={ExpandedComponent}
         fixedHeaderScrollHeight="400px"

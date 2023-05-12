@@ -3,9 +3,13 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 import CreateProductCategory from "./CreateProductCategory";
 import ProductCategoryContext from "../../ContextApi/contexts/ProductCategoryContext";
 import UpdateProductCategory from "./UpdateProductCategory";
-import DataTable, { createTheme } from "react-data-table-component";
+import DataTable from "react-data-table-component";
+import { TableStyle } from "../DataTable/CustomStyles";
+import SuccessAlert from "../Alerts/SuccessAlert";
+import { useOutletContext } from "react-router-dom";
 
-function ProductCategory() {
+function ProductCategory(props) {
+  const { setTitle } = useOutletContext();
   const { getProductCategory, DeleteProductcategory } = useContext(
     ProductCategoryContext
   );
@@ -38,8 +42,8 @@ function ProductCategory() {
   const handleDelete = async (id) => {
     const response = await DeleteProductcategory(id);
     if (!response.errors) {
-      setAlert((prev) => ({ ...prev, show: true, msg: response }));
-      forceUpdate();
+      setAlert((prev) => ({ ...prev, show: true, msg: response.msg }));
+      // forceUpdate();
     } else {
       setErrors(response.errors);
     }
@@ -49,15 +53,11 @@ function ProductCategory() {
     getProductCategory().then((res) => {
       setProductCategories(res);
     });
-  }, [render]);
+  }, [Alert, getProductCategory]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAlert({ ...Alert, show: false });
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, [Alert]);
+    setTitle(props.title)
+  },[])
 
   const columns = [
     {
@@ -77,24 +77,24 @@ function ProductCategory() {
     {
       name: "Edit",
       selector: (row) => (
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 10,
-            }}
-            whileTap={{ scale: 0.9 }}
-            type="button"
-            value={row._id}
-            className="btn btn-success rounded-pill"
-            onClick={() => {
-              handleClick(row._id);
-            }}
-          >
-            <i className="fa-solid fa-pen-to-square"></i>
-            Edit
-          </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.2 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 10,
+          }}
+          whileTap={{ scale: 0.9 }}
+          type="button"
+          value={row._id}
+          className="btn btn-success rounded-pill"
+          onClick={() => {
+            handleClick(row._id);
+          }}
+        >
+          <i className="fa-solid fa-pen-to-square"></i>
+          Edit
+        </motion.button>
       ),
     },
     {
@@ -123,120 +123,23 @@ function ProductCategory() {
     },
   ];
 
-  const customStyles = {
-    headCells: {
-      style: {
-        backgroundColor: "#252020",
-        borderBottom: "1px solid #fff",
-        color: "#fff",
-        fontSize: "20px",
-        fontWeight: "700",
-      },
-    },
-    // cells: {
-    //   style: {
-    //     backgroundColor: "#121212",
-    //     color: "#fff",
-    //     fontSize: "14px",
-    //     fontWeight: "400",
-    //   },
-    // },
-    rows: {
-      style: {
-        backgroundColor: "#121212",
-        color: "#fff",
-        fontSize: "14px",
-        fontWeight: "500",
-        padding: "20px 0",
-        transition: "all 0.3s ease-in-out",
-      },
-      // highlightOnHoverStyle: {
-      //   backgroundColor: "#d9edf7",
-      //   color: "#121212",
-      //   transition: "all 0.3s ease-in-out",
-      // },
-    },
-    pagination: {
-      style: {
-        backgroundColor: "#0b0b0b",
-        color: "#aaa",
-        fontSize: "12px",
-      },
-    },
-  };
 
-  createTheme(
-    "solarized",
-    {
-      text: {
-        primary: "#268bd2",
-        secondary: "#2aa198",
-      },
-      background: {
-        default: "#002b36",
-      },
-      context: {
-        background: "#cb4b16",
-        text: "#FFFFFF",
-      },
-      divider: {
-        default: "#073642",
-      },
-      action: {
-        button: "rgba(0,0,0,.54)",
-        hover: "rgba(193, 172, 172, 0.08)",
-        disabled: "rgba(0,0,0,.12)",
-      },
-    },
-    "dark"
-  );
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12">
-            <div className="page-title-box">
-              <h4 className="page-title text-white">Product Category Master</h4>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <AnimatePresence>
-        {Alert.show && (
-          <motion.div
-            initial={{ opacity: 0, x: 300 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ type: "spring", duration: 0.5 }}
-            className="alert alert-danger alert-dismissible bg-success text-white border-0 fade show"
-            role="alert"
-          >
-            <button
-              type="button"
-              className="btn-close btn-close-white"
-              data-bs-dismiss="alert"
-              aria-label="Close"
-              onClick={() => {
-                setAlert({ ...Alert, show: false });
-              }}
-            ></button>
-            <strong>Success - {Alert.msg.msg}</strong>
-          </motion.div>
-        )}
+        {Alert.show && <SuccessAlert Alert={Alert} setAlert={setAlert} />}
       </AnimatePresence>
 
       <DataTable
-        // title="Product Categories"
         columns={columns}
         data={ProductCategories}
-        customStyles={customStyles}
+        customStyles={TableStyle}
         fixedHeader
         pagination
         responsive
         highlightOnHover
-        theme="solarized"
         style={{ border: "10px solid #ddd" }}
       />
 

@@ -22,7 +22,7 @@ function Topbar(props) {
       userContext.getloggedinuser().then((r)=>{
         setUserInfo(r)
       })
-  },[userContext, userContext.isChanged])
+  },[])
 
   return (
     <>
@@ -31,7 +31,7 @@ function Topbar(props) {
           <div className="d-flex align-items-center ">
             <div className="logo-topbar">
               <span className="logo-lg">
-                <img src="/images/logo.png" alt="logo" height="40" />
+                <img src="/images/logo.png" alt="logo" height="30" />
               </span>
             </div>
             <h3 className="text-light">neon11</h3>

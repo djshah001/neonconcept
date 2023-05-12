@@ -12,7 +12,7 @@ function GetLoggedInUser(props) {
 
   const getloggedinuser = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_HOST}auth/getuser`,
+      const response = await axios.post(`${process.env.REACT_APP_HOST}auth/getloggedinadmin`,
         {}, {
         headers: {
           authToken: window.localStorage.getItem('authToken'),

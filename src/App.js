@@ -22,6 +22,8 @@ import NeonGO from './components/NeonGo/NeonGO';
 import GetProducts from './contexts/GetProducts';
 import DropDownContext from './contexts/DropDownContext';
 import HomeState from './states/HomeState';
+import Product from './components/Product/Product';
+import NeonGORoute from './routes/NeonGORoute';
 
 
 
@@ -104,16 +106,7 @@ function App() {
           })
         }
 
-        <Route path={neonGoInfo.path}
-          element={(<GetProducts>
-            <NeonGO
-              title={neonGoInfo.title}
-              route={neonGoInfo.title}
-              products={neonGoInfo.products}
-            />
-          </GetProducts>)
-          }
-        />
+        <Route path='neongo/*' element={<NeonGORoute/>}/>
 
         {workInfo.map((obj, value) => {
           return <Route path={'/gellery/' + obj.path} key={obj.path}

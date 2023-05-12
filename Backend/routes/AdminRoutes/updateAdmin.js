@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const User = require('../../models/User')
 const express = require('express');
 const router = express.Router()
 const { check, validationResult } = require('express-validator');
@@ -25,7 +25,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post('/createuser',
+router.post('/updateuser',
     upload.single('image'),
     [
         check('name')
@@ -46,41 +46,39 @@ router.post('/createuser',
             return res.send({ errors: errors.array() });
         }
 
-        const emailexist = await User.findOne({ email: req.body.email }).exec()
-        const profilePic = req.file ? `${req.file.originalname}-${time}-${date}.${req.file.mimetype.split("/")[1]}` : `OIP.jpeg`;
-
+        // const emailexist = await User.findOne({ email: req.body.email }).exec()
 
         try {
-            if (emailexist) {
-                res.send({ errors: [{ msg: 'email already exist' }] })
-            }
-            else {
+            const info = await User.findOne({ _id: req.body.id }).exec()
+            const id = req.body.id
+            const samePassword = req.body.password === info.password
+            var salt = bcrypt.genSaltSync(10);
+            var hash = bcrypt.hashSync(req.body.password, salt);
+            const newPassword = samePassword ? info.password : hash
 
-                var salt = bcrypt.genSaltSync(10);
-                var hash = bcrypt.hashSync(req.body.password, salt);
+            const profilePic = req.file ? `${req.file.originalname}-${time}-${date}.${req.file.mimetype.split("/")[1]}` : info.profilePic;
 
-                const user = await User.create({
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: req.body.password,
-                    profilePic: profilePic,
-                })
+            const user = await User.findByIdAndUpdate(id, {
+                name: req.body.name,
+                email: req.body.email,
+                password: newPassword,
+                profilePic: profilePic,
+            })
 
-                const data = {
-                    user: {
-                        id: user.id,
-                    }
+            const data = {
+                user: {
+                    id: user.id,
                 }
-
-                const authToken = jwt.sign(data, jwt_secret);
-
-                res.json({ authToken: authToken })
-                console.log('user added to db')
             }
+
+            // const authToken = jwt.sign(data, jwt_secret);
+
+            res.json({ msg: `User Updated` })
+            // }
 
         } catch (error) {
             console.error(errors.massage)
-            res.status(500).send('error occured')
+            res.send({ errors: [{ msg: `error occured` }] })
         }
 
     })

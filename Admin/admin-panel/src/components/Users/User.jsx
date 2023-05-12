@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import UserContext from "../../ContextApi/contexts/UserContext";
 import EditUser from "./EditUser";
-import { AnimatePresence, motion,} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import CreateUser from "./CreateUser";
+import DataTable from "react-data-table-component";
+import { TableStyle } from "../DataTable/CustomStyles";
+import SuccessAlert from "../Alerts/SuccessAlert";
+import { useOutletContext } from "react-router-dom";
 
-function User() {
+function User(props) {
+  const { setTitle } = useOutletContext();
   const userContext = useContext(UserContext);
   const [ShowEdit, setShowEdit] = useState(false);
   const [ShowAddUser, setShowAddUser] = useState(false);
@@ -12,141 +17,182 @@ function User() {
     name: "",
     email: " ",
     password: "",
-    image:'',
+    image: "",
     imageUrl: "",
   });
   const [Errors, setErrors] = useState([]);
+  const [Alert, setAlert] = useState({
+    show: false,
+    msg: "",
+  });
 
   const [render, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
-    userContext.getUsersArray();
+    setTitle(props.title)
+    userContext.getAdminsArray();
   }, [render]);
 
   useEffect(() => {
     console.log(userInfo.image);
   }, [userInfo.image]);
 
-  const getuserbyid = userContext.getuserbyid;
+  const getAdminbyid = userContext.getAdminbyid;
   const handleClick = async (userId) => {
-    console.log(userId);
-    const res = await getuserbyid(userId);
-    console.log(res)
-    setUserInfo(res);
-    console.log(userInfo)
-    setShowEdit(!ShowEdit);
+    const res = await getAdminbyid(userId);
+    if (!res.errors) {
+      setAlert((prev) => ({ ...prev, show: true, msg: res.msg }));
+      forceUpdate();
+      setUserInfo(res);
+      setShowEdit(!ShowEdit);
+    } else {
+      setErrors(res.errors);
+    }
   };
 
-  const deleteuserbyid = userContext.DeleteUserById;
+  const deleteAdmin = userContext.DeleteAdmin;
   const deleteUser = async (userId) => {
-    const res = await deleteuserbyid(userId);
-    forceUpdate();
-    console.log(res);
+    const res = await deleteAdmin(userId);
+    if (!res.errors) {
+      setAlert((prev) => ({ ...prev, show: true, msg: res.msg }));
+      forceUpdate();
+    }
   };
 
   const handleChange = (e) => {
-    if(e.target.name === 'image'){
-    const file = e.target.files[0];
-    setUserInfo((prevState) => ({
-      ...prevState,
-      image: file,
-      imageUrl: URL.createObjectURL(file),
-    }));
-    }
-    else{
+    if (e.target.name === "image") {
+      const file = e.target.files[0];
+      setUserInfo((prevState) => ({
+        ...prevState,
+        image: file,
+        imageUrl: URL.createObjectURL(file),
+      }));
+    } else {
       setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
     }
   };
 
-  const updateUser = userContext.updateUser
-  const handleUpdate = async(e) => {
+  const updateAdmin = userContext.updateAdmin;
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    const res = await updateUser(userInfo)
-    forceUpdate()
+    const res = await updateAdmin(userInfo);
     if (!res.errors) {
-      setShowEdit(!ShowEdit)
+      setAlert((prev) => ({ ...prev, show: true, msg: res.msg }));
+      forceUpdate();
+      setShowEdit(!ShowEdit);
     } else {
       setErrors(res.errors);
-      console.log(Errors);
     }
-  }
+  };
+
+  const columns = [
+    {
+      name: "id",
+      selector: (row, index) => index + 1,
+      width: "100px",
+    },
+    {
+      name: "Name",
+      selector: (row) => <div>{row.name}</div>,
+    },
+    {
+      name: "Email",
+      selector: (row) => <div>{row.email}</div>,
+    },
+    {
+      name: "Password",
+      selector: (row) => <div>{row.password}</div>,
+    },
+    {
+      name: "Image",
+      selector: (row) => (
+        <img
+          src={
+            row.profilePic !== ""
+              ? `${process.env.REACT_APP_HOST}images/profilePic/${row.profilePic}`
+              : `${process.env.REACT_APP_HOST}images/profilePic/OIP.jpeg`
+          }
+          className="img-fluid avatar-md rounded-circle"
+          alt=""
+          width="100%"
+          height="100%"
+        />
+      ),
+    },
+    // {
+    //   name: "status",
+    //   selector: (row) => (row.active ? "Active" : "not Active"),
+    // },
+    {
+      name: "Edit",
+      selector: (row) => (
+        <motion.button
+          whileHover={{ scale: 1.2 }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 10,
+          }}
+          whileTap={{ scale: 0.9 }}
+          type="button"
+          value={row._id}
+          className="btn btn-success rounded-pill"
+          onClick={() => {
+            handleClick(row._id);
+          }}
+        >
+          <i className="fa-solid fa-pen-to-square"></i>
+          Edit
+        </motion.button>
+      ),
+      width: "100px",
+    },
+    {
+      name: "delete",
+      selector: (row) => (
+        <>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 10,
+            }}
+            whileTap={{ scale: 0.9 }}
+            type="button"
+            className="btn btn-danger rounded-pill"
+            onClick={() => {
+              deleteUser(row._id);
+            }}
+          >
+            <i className="fa-solid fa-trash"></i>
+            Delete
+          </motion.button>
+        </>
+      ),
+    },
+  ];
+  
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12">
-            <div className="page-title-box">
-              <h4 className="page-title text-white">Users</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <table
-        id="fixed-header-datatable"
-        className="table dt-responsive nowrap table-striped w-100"
-      >
-        <thead>
-          <tr>
-            <th>Sr No.</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Image</th>
-            <th>password</th>
-            <th>Status</th>
-            <th>Action</th>
-            {/* <th>Salary</th> */}
-          </tr>
-        </thead>
 
-        <tbody >
-          {userContext.users.map((user, index) => {
-            return (
-              <tr key={user._id}>
-                <th>{index + 1}</th>
-                <th>{user.name}</th>
-                <th>{user.email}</th>
-                <th>
-                      <img
-                        src={`${process.env.REACT_APP_HOST}images/profilePic/${user.profilePic}`}
-                        className="img-fluid avatar-sm rounded-circle"
-                        alt=""
-                        width="100%"
-                        height="100%"
-                      />
-                </th>
-                <th>{user.password}</th>
-                <th>{user.name}</th>
-                <th>
-                  <motion.button
-                    whileHover={{ scale: 1.2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    whileTap={{ scale: 0.9 }}
-                    type="button"
-                    value={user._id}
-                    className="btn btn-success rounded-pill"
-                    onClick={() => handleClick(user._id)}
-                  >
-                    <i className="fa-solid fa-pen-to-square"></i>
-                    Edit
-                  </motion.button>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    whileTap={{ scale: 0.9 }}
-                    type="button"
-                    className="btn btn-danger rounded-pill"
-                    onClick={() => deleteUser(user._id)}
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                    Delete
-                  </motion.button>
-                </th>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <AnimatePresence>
+        {Alert.show && <SuccessAlert Alert={Alert} setAlert={setAlert} />}
+      </AnimatePresence>
+
+      <DataTable
+        columns={columns}
+        data={userContext.users}
+        customStyles={TableStyle}
+        dense
+        pagination
+        responsive
+        fixedHeader
+        highlightOnHover
+        fixedHeaderScrollHeight="450px"
+      />
+
       <AnimatePresence>
         {ShowEdit && (
           <EditUser
@@ -163,6 +209,8 @@ function User() {
       <AnimatePresence>
         {ShowAddUser && (
           <CreateUser
+            Alert={Alert}
+            setAlert={setAlert}
             setShowAddUser={setShowAddUser}
             forceUpdate={forceUpdate}
           />
