@@ -21,11 +21,15 @@ app.use('/auth',require('./routes/AdminRoutes/getAdmins'))
 app.use('/auth',require('./routes/AdminRoutes/getAdminbyid'))
 app.use('/auth',require('./routes/AdminRoutes/getLoggedInAdmin'))
 
+app.use('/auth/customer',require('./routes/CustomerRoutes/SignUp'))
+
+
 app.use('/',require('./routes/ProductRoutes/addProduct'))
 app.use('/',require('./routes/ProductRoutes/DeleteProduct'))
 app.use('/',require('./routes/ProductRoutes/getProducts'))
 app.use('/',require('./routes/ProductRoutes/getProduct'))
 app.use('/',require('./routes/ProductRoutes/UpdateProduct'))
+app.use('/',require('./routes/ProductRoutes/getFilteredProducts'))
 
 app.use('/addneonsigns',require('./routes/addneonSigns'))
 app.use('/getneonsigns',require('./routes/getneonSigns'))
@@ -35,6 +39,10 @@ app.use('/',require('./routes/BannerRoutes/getbanners'))
 app.use('/',require('./routes/BannerRoutes/getbannerbyid'))
 app.use('/',require('./routes/BannerRoutes/updatebanner'))
 app.use('/',require('./routes/BannerRoutes/deletebanner'))
+
+app.use('/cmsmaster',require('./routes/CmsMasterRoutes/addCmsMaster'))
+app.use('/cmsmaster',require('./routes/CmsMasterRoutes/getCmsMaster'))
+app.use('/cmsmaster',require('./routes/CmsMasterRoutes/updateCmsMaster'))
 
 app.use('/',require('./routes/ProductCategoryRoutes/createproductcategory'))
 app.use('/',require('./routes/ProductCategoryRoutes/getProductCategories'))

@@ -157,7 +157,7 @@ function Sidebar() {
                         <NavLink to="/banner">Banner Master</NavLink>
                       </li>
                       <li>
-                        <NavLink to=""> CMS Master</NavLink>
+                        <NavLink to="/cmsmaster"> CMS Master</NavLink>
                       </li>
                       <li>
                         <NavLink to="">Email Template Master</NavLink>

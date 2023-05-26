@@ -24,11 +24,14 @@ function ProductCategoryState(props) {
   }
 
   const UpdateProductcategory = async (id, ProductCategoryInfo) => {
-    console.log(id)
+    console.log(ProductCategoryInfo)
     const url = `${process.env.REACT_APP_HOST}updateproductcategory`
     const response = await axios.post(url,
     {id: id, 
     title: ProductCategoryInfo.title,
+    topTitle: ProductCategoryInfo.topTitle,
+    heading: ProductCategoryInfo.heading,
+    description: ProductCategoryInfo.description,
     active: ProductCategoryInfo.active })
     return response.data
   }

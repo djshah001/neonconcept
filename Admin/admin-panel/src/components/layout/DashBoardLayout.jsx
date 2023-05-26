@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import SideBarContext from "../../ContextApi/contexts/SideBarContext";
 import Footer from "../Footer/Footer";

@@ -1,25 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useContext, useEffect, useReducer, useState } from "react";
-import CreateProductCategory from "./CreateProductCategory";
+import React, { useContext, useEffect, useState } from "react";
 import ProductCategoryContext from "../../ContextApi/contexts/ProductCategoryContext";
-import UpdateProductCategory from "./UpdateProductCategory";
 import DataTable from "react-data-table-component";
 import { TableStyle } from "../DataTable/CustomStyles";
 import SuccessAlert from "../Alerts/SuccessAlert";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 function ProductCategory(props) {
+  const navigate = useNavigate()
   const { setTitle } = useOutletContext();
   const { getProductCategory, DeleteProductcategory } = useContext(
     ProductCategoryContext
   );
-
-  const [ShowCreateProductCategory, setShowCreateProductCategory] =
-    useState(false);
-  const [updateProductCategory, setUpdateProductCategory] = useState({
-    id: "",
-    show: false,
-  });
 
   const [ProductCategories, setProductCategories] = useState();
 
@@ -29,14 +21,9 @@ function ProductCategory(props) {
     msg: "",
   });
 
-  const [render, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const handleClick = (id) => {
-    setUpdateProductCategory({
-      ...updateProductCategory,
-      id: id,
-      show: true,
-    });
+    navigate(`./update/${id}`)
   };
 
   const handleDelete = async (id) => {
@@ -56,8 +43,9 @@ function ProductCategory(props) {
   }, [Alert, getProductCategory]);
 
   useEffect(() => {
+    console.log('hi')
     setTitle(props.title)
-  },[])
+  })
 
   const columns = [
     {
@@ -73,6 +61,10 @@ function ProductCategory(props) {
     {
       name: "status",
       selector: (row) => (row.active ? "Active" : "not Active"),
+    },
+    {
+      name: "Heading",
+      selector: (row) => (row.heading),
     },
     {
       name: "Edit",
@@ -143,16 +135,6 @@ function ProductCategory(props) {
         style={{ border: "10px solid #ddd" }}
       />
 
-      <AnimatePresence>
-        {updateProductCategory.show && (
-          <UpdateProductCategory
-            setUpdateProductCategory={setUpdateProductCategory}
-            forceUpdate={forceUpdate}
-            setAlert={setAlert}
-            id={updateProductCategory.id}
-          />
-        )}
-      </AnimatePresence>
 
       <div className="col-10">
         <div className="d-flex flex-row-reverse ">
@@ -162,7 +144,7 @@ function ProductCategory(props) {
             whileTap={{ scale: 0.9 }}
             className="btn btn-primary rounded-pill my-4"
             onClick={() => {
-              setShowCreateProductCategory(!ShowCreateProductCategory);
+              navigate('./create')
             }}
           >
             <i className="fa-solid fa-plus"></i>
@@ -171,16 +153,6 @@ function ProductCategory(props) {
         </div>
       </div>
 
-      <AnimatePresence>
-        {ShowCreateProductCategory && (
-          <CreateProductCategory
-            setShowCreateProductCategory={setShowCreateProductCategory}
-            setAlert={setAlert}
-            Alert={Alert}
-            forceUpdate={forceUpdate}
-          />
-        )}
-      </AnimatePresence>
     </>
   );
 }

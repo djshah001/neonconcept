@@ -45,6 +45,7 @@ function PhotoCarousel() {
         arrows
         partialVisible={false}
         autoPlaySpeed={1000}
+        autoPlay={true}
         centerMode={false}
         className="dj"
         containerClass="container-fluid"

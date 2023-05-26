@@ -5,6 +5,15 @@ const productsCategorySchema = new mongoose.Schema({
         type: "string",
         required: true
     },
+    topTitle: {
+        type: "string",
+    },
+    heading: {
+        type: "string",
+    },
+    description: {
+        type: "string",
+    },
     active: { 
         type: Boolean, 
         required: true 

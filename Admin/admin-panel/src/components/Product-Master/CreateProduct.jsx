@@ -25,6 +25,7 @@ function CreateProduct(props) {
     title: "",
     active: true,
     description: "",
+    samlldescription: "",
     readyToBuy: true,
     offerPrice: undefined,
     originalPrice: undefined,
@@ -104,6 +105,10 @@ function CreateProduct(props) {
 
   const onEditorChange = (e) => {
     setProductInfo((prev) => ({ ...prev, description: e }));
+  };
+
+  const onsmallEditorChange = (e) => {
+    setProductInfo((prev) => ({ ...prev, smalldescription: e }));
   };
 
   const createProduct = async (productInfo) => {
@@ -210,6 +215,24 @@ function CreateProduct(props) {
                   theme="snow"
                   value={ProductInfo.description}
                   onChange={onEditorChange}
+                  modules={{
+                    toolbar: toolbarOptions,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="row my-2">
+            <div className="form-group col-md-12">
+              <label htmlFor="title" className="col-form-label pb-2">
+                Product Small Description :
+              </label>
+              <div className="bg-light text-black">
+                <ReactQuill
+                  theme="snow"
+                  value={ProductInfo.smalldescription}
+                  onChange={onsmallEditorChange}
                   modules={{
                     toolbar: toolbarOptions,
                   }}

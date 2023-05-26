@@ -1,6 +1,6 @@
 import React from 'react'
 
-function About() {
+function About(props) {
     return (
         <section id="introduction">
             <div className="container">
@@ -12,7 +12,7 @@ function About() {
                         <span className="sub_head">About Neon Creative Concept 11</span>
                         <h2 className="s_head">About Us</h2>
                         <p className="h_body">
-                            We are specialised in customised neo lighting. We create any Custom Sign Boards for Home, Shop, office.
+                            {props.tagLine}
                         </p>
                         {/* <!--<div className="text-right">
                             <a href="#" className="button_main btn mb-3">Read more&nbsp;&nbsp;<i className="fas fa-angle-right arrow_go"></i></a>

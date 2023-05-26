@@ -25,7 +25,10 @@ async (req,res) => {
     else{
 
         await productsCategory.create({
-            title: req.body.title,
+            title: req.body.title, 
+            topTitle: req.body.topTitle, 
+            heading: req.body.heading, 
+            description: req.body.description, 
             active:req.body.active
           })
     

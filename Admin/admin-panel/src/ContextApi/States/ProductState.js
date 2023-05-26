@@ -20,6 +20,7 @@ function ProductState(props) {
             const formdata = new FormData();
             formdata.append('title', Product.title)
             formdata.append('description', Product.description)
+            formdata.append('smalldescription', Product.smalldescription)
             formdata.append('active', Product.active)
             formdata.append('readyToBuy', Product.readyToBuy)
             formdata.append('offerPrice', Product.offerPrice)
@@ -41,6 +42,7 @@ function ProductState(props) {
             formdata.append('id', id)
             formdata.append('title', Product.title)
             formdata.append('description', Product.description)
+            formdata.append('smalldescription', Product.smalldescription)
             formdata.append('active', Product.active)
             formdata.append('readyToBuy', Product.readyToBuy)
             formdata.append('offerPrice', Product.offerPrice)

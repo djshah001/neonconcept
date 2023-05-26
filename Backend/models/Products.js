@@ -6,6 +6,10 @@ const productSchema = new mongoose.Schema({
         ref:"productscategory",
         required: true 
     },
+    ProductCategory: { 
+        type: String,
+        required: true 
+    },
     title: {
         type: "string",
         required: true
@@ -13,6 +17,9 @@ const productSchema = new mongoose.Schema({
     description: {
         type: "string",
         required: true,
+    },
+    smalldescription: {
+        type: "string",
     },
     productImgUrl: {
         type: "string",

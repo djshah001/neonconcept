@@ -1,4 +1,5 @@
 const Product = require('../../models/Products')
+const productsCategory = require('../../models/Productcategories');
 const express = require('express');
 const router = express.Router()
 const { check, validationResult, body } = require('express-validator');
@@ -58,12 +59,12 @@ router.post('/addproduct',
             .withMessage('Ready to buy status should be a boolean value')
             .custom((value, { req }) => {
                 console.log(typeof req.body.offerPrice)
-                if (value === true && req.body.offerPrice === 'undefined' ) {
+                if (value === true && req.body.offerPrice === 'undefined') {
                     throw new Error('Offer price is required when Ready to buy is true ');
                 }
                 return true;
             }),
-            body('offerPrice')
+        body('offerPrice')
             .if(body('readyToBuy').equals('true'))
             .not()
             .isEmpty()
@@ -108,10 +109,14 @@ router.post('/addproduct',
                     const offerPrice = req.body.offerPrice ? req.body.offerPrice : 0
                     const originalPrice = req.body.originalPrice ? req.body.originalPrice : 0
 
+                    const ProductCategory = await productsCategory.findById(req.body.ProductCategoryId)
+
                     const product = await Product.create({
                         ProductCategoryId: req.body.ProductCategoryId,
+                        ProductCategory:ProductCategory.title,
                         title: req.body.title,
                         description: req.body.description,
+                        smalldescription: req.body.smalldescription,
                         active: req.body.active,
                         readyToBuy: req.body.readyToBuy,
                         offerPrice: offerPrice,

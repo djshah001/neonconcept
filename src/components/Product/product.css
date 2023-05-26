@@ -1,21 +1,36 @@
 .product-container {
-    margin: 6rem 0;
+    margin: 7rem auto;
     padding: 0 5rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
-.product-container img{
+.product-container .product_title {
+    color: #ff1744
+}
+
+.imgDiv {
     position: sticky;
-    top: 0;
+    top: 100px;
+}
+
+.product-container .imgDiv h2 {
+    color: #ff1744;
+    display: inline-block;
+    margin-right: 0.5rem;
 }
 
 .price {
+    position: sticky;
+    top: 100px;
     border-left: 1px solid #ff1744;
     /* border-right: 1px solid #ff1744; */
     padding: 0rem 1.5rem;
     border-radius: 3px;
 }
 
-.product-info{
+.product-info {
     padding: 0rem 1.5rem;
     border-radius: 3px;
 }
@@ -25,6 +40,38 @@
     display: inline-block;
     margin: 0;
     margin-right: 0.5rem
+}
+
+@media(max-width: 576px) {
+
+    .product-container {
+        /* margin: 5rem auto; */
+        padding: 0 2rem;
+        flex-direction: column;
+    }
+
+    .product-container img {
+        position: sticky;
+        top: 60px;
+    }
+
+    .product_title {
+        /* text-align: center; */
+        margin: 1.5rem auto;
+    }
+
+    .bl_text {
+        /* text-align: center; */
+        margin-bottom: 2rem;
+    }
+
+    .price {
+        border: none;
+        border-top: 1px solid #fff;
+        padding: 0;
+        padding-top: 1rem;
+
+    }
 }
 
 .price .icon {
@@ -37,7 +84,7 @@
 }
 
 
-.price .deliver p{
+.price .deliver p {
     display: inline;
     margin: 0 0.2rem;
 }
@@ -45,10 +92,17 @@
 .price .counter {
     color: #f81f01;
     padding: 1rem;
-    display: inline-block;
 }
 
-.price .btn-combo .Btn{
+/* .btn-combo{
+    display: flex;
+    flex-direction: column;
+    margin:0 auto;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+.price .btn-combo .Btn {
     width: 100%;
     text-align: center;
     background: -webkit-linear-gradient(145deg, #f81f01, #ee076e);
@@ -56,18 +110,17 @@
     color: #fff;
     display: block;
     padding: 0.5rem 1rem 0.7rem 1rem;
-    margin: 1rem 0;
+    margin: 1rem 0 0.5rem 0;
+    border: 2px solid #fff;
     border-radius: 50px;
+    text-shadow: 0px 0px 15px rgb(255, 255, 255);
+    box-shadow: inset 0px 0px 1px #f81f01, 0px 0px 30px #f81f01;
 }
 
-.price .btn-combo .Btn:hover{
-    background: -webkit-linear-gradient(145deg, #f81f01, #ee076e);
-    background-image: -webkit-linear-gradient(145deg, rgb(248, 31, 1), rgb(238, 7, 110));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-color: #fff;
-    display: block;
-    padding: 0.5rem 1rem 0.7rem 1rem;
-    margin: 1rem 0;
-    border-radius: 50px;
+.Btn i {
+    transition: transform 0.3s ease-in-out;
+}
+
+.price .btn-combo .Btn:hover .fa-angle-right {
+    transform: translateX(50%);
 }

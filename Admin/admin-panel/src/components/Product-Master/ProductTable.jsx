@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import ProductContext from "../../ContextApi/contexts/ProductContext";
 import SuccessAlert from "../Alerts/SuccessAlert";
 import Spinner from "../Alerts/Spinner";
+import { EditBtn } from "../Btns/EditBtn";
+import { DeleteBtn } from "../Btns/DeleteBtn";
 
 function ProductTable(props) {
   const navigate = useNavigate();
@@ -16,6 +18,10 @@ function ProductTable(props) {
   const [Loading, setLoading] = useState(false);
 
   const { getProducts, DeleteProduct } = useContext(ProductContext);
+
+  const handleClick = async (id) => {
+    navigate(`./editproduct/${id}`);
+  };
 
   const handleDelete = async (id) => {
     console.log("hi");
@@ -85,49 +91,14 @@ function ProductTable(props) {
     },
     {
       name: "Edit",
-      selector: (row) => (
-        <motion.button
-          whileHover={{ scale: 1.2 }}
-          transition={{
-            type: "spring",
-            stiffness: 400,
-            damping: 10,
-          }}
-          whileTap={{ scale: 0.9 }}
-          type="button"
-          value={row._id}
-          className="btn btn-success rounded-pill"
-          onClick={() => {
-            navigate(`./editproduct/${row._id}`);
-          }}
-        >
-          <i className="fa-solid fa-pen-to-square"></i>
-          Edit
-        </motion.button>
-      ),
+      selector: (row) => <EditBtn handleClick={handleClick} id={row._id} />,
       width: "100px",
     },
     {
       name: "delete",
       selector: (row) => (
         <>
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 10,
-            }}
-            whileTap={{ scale: 0.9 }}
-            type="button"
-            className="btn btn-danger rounded-pill"
-            onClick={() => {
-              handleDelete(row._id);
-            }}
-          >
-            <i className="fa-solid fa-trash"></i>
-            Delete
-          </motion.button>
+          <DeleteBtn handleDelete={handleDelete} id={row._id} />
         </>
       ),
     },
@@ -144,7 +115,6 @@ function ProductTable(props) {
     setTitle(props.title);
     getproducts();
   }, [Alert.show]);
-
 
   const SubHeader = () => (
     <NavLink to="./createproduct">

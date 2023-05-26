@@ -9,7 +9,7 @@ function NeonGORoute() {
     <Routes>
       <Route
         exact
-        path="/"
+        path="/:endpoint/:id"
         element={
           <GetProducts>
             <NeonGO />
@@ -18,7 +18,7 @@ function NeonGORoute() {
       />
       <Route
         exact
-        path="/products/:id"
+        path="/:endpoint/:id/:productId"
         element={
           <GetProducts>
             <Product />

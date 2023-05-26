@@ -1,0 +1,200 @@
+﻿.grid-item {
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+}
+
+.isotope-pager .pager {
+    /*display: inline-block;*/
+    display: none;
+}
+
+.filters {
+    width: 100%;
+    text-align: center;
+    /*padding-bottom: 25px;*/
+    /*padding-top:20px;*/
+}
+
+    .filters ul {
+        list-style: none;
+        /*padding: 20px 10px;
+    box-shadow: -1px 1px 11px rgba(0,0,0,.4);
+    margin: 0 40px;
+    border-radius: 30px;
+	background-color: #232323;*/
+    }
+
+    .filters li {
+        display: inline-block;
+    }
+
+        .filters li a {
+            color: #3d3d3d;
+            margin: 0px 10px;
+            text-decoration: none;
+            border: 1px solid #ffbfac;
+            padding: 2px 5px;
+            letter-spacing: 2px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+            .filters li a:hover {
+                color: #ffbfac;
+            }
+
+
+/*.filter-ul-tab {
+                            float: right;
+                            z-index: 999999;
+                            background-color: #fff;
+                        }
+
+                            .filter-ul-tab:before {
+                                content: " ";
+                                border-top: 1px solid #d5d5d5;
+                                left: 0;
+                                right: 0;
+                                top: 33px;
+                                z-index: 0;
+                                position: absolute;
+                            }
+
+                        .filters li {
+                            display: inline-block;
+                            position: relative;
+                            z-index: 999;
+                            background-color: #fff;
+                        }
+
+                            .filters li a {
+                                color: #3d3d3d;
+                                margin: 0px 0px;
+                                text-decoration: none;
+                                border: 1px solid #ffbfac;
+                                padding: 2px 10px;
+                                letter-spacing: 2px;
+                                font-size: 12px;
+                                font-weight: 600;
+                            }*/
+/*.isotope-pager {
+    display: none !important;
+}*/
+
+.isotope {
+    width: 100% !important;
+    height: auto !important;
+}
+
+    .isotope .grid-item {
+        position: relative !important;
+        left: 0px !important;
+        top: 0px !important;
+        height: auto !important;
+        width: 100% !important;
+    }
+
+@media (min-width:1200px) {
+    .col-xl-20 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
+
+#header {
+    position: relative;
+}
+
+    #header:before {
+        content: " ";
+        background-color: #525251;
+        width: 100%;
+        height: 1px;
+        left: 0;
+        right: 0;
+        position: absolute;
+        top: 25px;
+    }
+
+    #header:after {
+        content: " ";
+        background-color: #525251;
+        width: 100%;
+        height: 1px;
+        left: 0;
+        right: 0;
+        position: absolute;
+        bottom: 25px;
+    }
+
+.isotope-pager a {
+    margin: 6px 1px;
+    display: inline-block;
+    width: 50px;
+    /* height: 60px; */
+    line-height: 31px;
+    color: #3d3d3d;
+    font-weight: 600;
+    transition: 0.3s;
+    /* position: relative; */
+    /* padding-right: 26px; */
+    box-shadow: -1px 1px 11px rgba(0,0,0,.1);
+    border-radius: 25px;
+    background-color: #fddfd6;
+    border: .5px solid #ffbfac;
+    text-decoration: none;
+}
+
+    .isotope-pager a:hover {
+        color: #3d3d3d;
+        border: .5px solid #3d3d3d;
+        box-shadow: -1px 1px 10px 3px rgba(0,0,0,.1);
+    }
+
+.isotope-pager .active {
+    color: #fddfd6 !important;
+    box-shadow: -1px 1px 10px 5px rgba(0,0,0,.1);
+    border-radius: 25px;
+    background-color: #3d3d3d;
+    border: 1px solid #ffbfac;
+}
+
+.isotope-pager .prev {
+    border-radius: 30px 0 0 30px;
+}
+
+.isotope-pager .next {
+    border-radius: 0 30px 30px 0;
+}
+
+.isotope-pager a::before, .isotope-pager a:after {
+    content: "";
+    position: absolute;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+}
+
+.isotope-pager .num::before, .next::before {
+    border-right: 20px solid #2c3e50;
+    right: 100%;
+}
+
+.isotope-pager .num:after, .prev:after {
+    border-right: 20px solid #f1f1f1;
+    right: 0;
+}
+.isotope-pager{
+    text-align: center;
+    left: 50%;
+    position: relative;
+}
+@media (max-width: 769px) {
+    .isotope-pager {
+        text-align: center;
+        left: 0px;
+        position: relative;
+    }
+}

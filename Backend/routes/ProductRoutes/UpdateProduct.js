@@ -1,8 +1,9 @@
 const Product = require('../../models/Products')
+const productsCategory = require('../../models/Productcategories');
 const express = require('express');
 const router = express.Router()
 const { check, validationResult, body } = require('express-validator');
-const {upload,date,time} = require('../../middleware/imageUploader');
+const { upload, date, time } = require('../../middleware/imageUploader');
 // const currentDate = new Date()
 // let date = `${currentDate.getDate()}-${currentDate.getMonth()}-${currentDate.getFullYear()}`
 // let time = `${currentDate.getHours()}-${currentDate.getMinutes()}-${currentDate.getSeconds()}`;
@@ -89,10 +90,16 @@ router.post('/updateproduct',
                 const offerPrice = req.body.offerPrice ? req.body.offerPrice : 0
                 const originalPrice = req.body.originalPrice ? req.body.originalPrice : 0
 
+                let ProductCategoryInfo = await productsCategory.findById(req.body.ProductCategoryId);
+
+                const ProductCategory = req.body.ProductCategory === productInfo.ProductCategory ? req.body.ProductCategory : ProductCategoryInfo.title
+
                 const product = await Product.findByIdAndUpdate(id, {
                     ProductCategoryId: req.body.ProductCategoryId,
+                    ProductCategory: ProductCategory,
                     title: req.body.title,
                     description: req.body.description,
+                    smalldescription: req.body.smalldescription,
                     active: req.body.active,
                     readyToBuy: req.body.readyToBuy,
                     offerPrice: offerPrice,

@@ -20,6 +20,9 @@ async (req,res) => {
     try {
         const p = await productsCategory.findByIdAndUpdate(id,{
             title: req.body.title,
+            topTitle: req.body.topTitle, 
+            heading: req.body.heading, 
+            description: req.body.description,
             active:req.body.active
           })
     
